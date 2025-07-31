@@ -1,0 +1,14 @@
+<div class="image-container">
+  @for (img of images; track $index) {
+    <div class="image-item">
+      <img [src]="img.src" alt="Image" class="image">
+      <div class="caption">
+        <p>{{ img.description }}</p>
+        <ul>
+          <li><mat-icon> location_on</mat-icon>{{ img.location }}</li>
+          <li><mat-icon>access_time</mat-icon>{{ img.time }}</li>
+        </ul>
+      </div>
+    </div>
+  }
+</div>

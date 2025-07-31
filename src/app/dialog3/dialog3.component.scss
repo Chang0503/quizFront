@@ -1,0 +1,46 @@
+.dialog-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 500;
+  color: #3f51b5; // 標題顏色
+  margin-bottom: 20px;
+}
+
+.dialog-content {
+  background-color: #f4f7fb; // 設定背景顏色為淺藍色
+  border-radius: 8px; // 邊角圓角處理
+  padding: 16px; // 給對話框內容區域內加些內邊距
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;  // 增加表單欄位之間的間距
+}
+
+.form-field {
+  width: 100%;  // 確保表單欄位寬度自適應
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 16px 0;  // 增加按鈕上下間距
+
+  button {
+    font-weight: bold;
+  }
+
+  button.mat-button {
+    color: #f44336;  // 取消按鈕的顏色
+  }
+
+  button.mat-raised-button {
+    background-color: #3f51b5; // 提交按鈕的背景色
+    color: white;
+    &:hover {
+      background-color: #303f9f;  // 提交按鈕的懸停顏色
+    }
+  }
+}

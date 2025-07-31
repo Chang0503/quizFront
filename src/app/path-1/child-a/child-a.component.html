@@ -1,0 +1,78 @@
+<div class="outside">
+
+  <!-- 只抓 array1[0] 作為主資料來源 -->
+  @if (array1.length > 0) {
+  <div class="input-container">
+    <!-- 時間顯示區域 -->
+    <div class="time">
+      {{ startDate }} ~ {{ endDate }}
+    </div>
+
+    <!-- 標題區塊 -->
+    <h1 class="title">{{ title }}</h1>
+    <h2 class="directions">{{ direction }}</h2>
+
+    <!-- 表單區域 -->
+    <div class="input">
+      <div class="input-item">
+        <label for="name">姓名:</label>
+        <input type="text" id="name" [(ngModel)]="name" placeholder="例: 邱喜郎">
+      </div>
+
+      <div class="input-item">
+        <label for="phone">手機:</label>
+        <input type="tel" id="phone" [(ngModel)]="phone" placeholder="例: 0912345678">
+      </div>
+
+      <div class="input-item">
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" [(ngModel)]="email" placeholder="例: abc123@gmail.com">
+      </div>
+
+      <div class="input-item">
+        <label for="number">年齡:</label>
+        <input type="number" id="number" [(ngModel)]="number" placeholder="例: 18">
+      </div>
+    </div>
+  </div>
+  }
+
+  <!-- 問題區塊 -->
+  <div class="choose">
+    @for (Question of array1; track $index) {
+    <div class="required-question">
+      @if (Question.need) {
+      <div class="question-name">
+        <span style="color: red;">★ </span>{{ Question.questName }}
+      </div>
+      } @else {
+      <div class="question-name">{{ Question.questName }}</div>
+      }
+    </div>
+
+    @for (option of Question.choose; track $index) {
+    <div class="choose-option">
+      @if (Question.type === 'Single') {
+      <input type="radio" [(ngModel)]="Question.answers" name="{{ Question.questName }}"
+        value="{{ option.chooseName }}">
+      } @else if (Question.type === 'Multi') {
+      <input type="checkbox" [(ngModel)]="option.Boolean" />
+      }
+      {{ option.chooseName }}
+    </div>
+    }
+
+    @if (Question.type === 'Text') {
+    <textarea [(ngModel)]="Question.answers" placeholder="沒有的話填無"></textarea>
+    }
+    }
+  </div>
+
+  <br />
+  <div class="button">
+    <button mat-raised-button (click)="back()">返回</button>
+    <button mat-raised-button color="primary" (click)="Preview()">預覽</button>
+  </div>
+</div>
+
+<router-outlet></router-outlet>

@@ -1,0 +1,76 @@
+.reservation-form {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+mat-card-actions {
+  display: flex;
+  justify-content: flex-end; /* 讓按鈕靠右 */
+}
+mat-card {
+  padding: 20px;
+}
+.reservation-header {
+  background-color: #007bff; /* Blue color */
+  color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* 水平居中 */
+  align-items: center; /* 垂直居中 */
+  height: 200px;
+}
+h2 {
+  margin: 0;
+  font-size:50px
+}
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #105099; /* 按鈕背景顏色 */
+  color: white;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #082a52; /* 按鈕 hover 時顏色變換 */
+}
+
+.text {
+  margin-right: 15px; /* 調整文字與箭頭的距離 */
+}
+
+.waving-hand {
+  display: inline-block;
+  animation: shakeLeftRight 1s infinite; /* 設置晃動動畫 */
+  font-size: 24px; /* 箭頭圖標大小 */
+  color: #ffffff; /* 箭頭顏色 */
+  vertical-align: middle; /* 保證箭頭與文字垂直居中 */
+}
+
+@keyframes shakeLeftRight {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+}

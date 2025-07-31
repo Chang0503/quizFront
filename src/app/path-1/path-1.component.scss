@@ -1,0 +1,164 @@
+/* 🌆 背景區域 */
+.out {
+  background-color: #d5cdcd;
+  background-size: cover;
+  background-position: center;
+  min-height: 93vh;
+  z-index: -1;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* 🔑 管理員登入按鈕 */
+.login-container {
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+.login-container button {
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #000 !important;
+  color: white !important;
+  border-radius: 6px;
+  padding: 6px 14px;
+}
+.login-container mat-icon {
+  font-size: 20px;
+  margin-right: 4px;
+  vertical-align: middle;
+  color: #e9e5e6;
+}
+
+/* 🔍 搜尋區塊 */
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 16px 20px;
+  border-radius: 10px;
+}
+
+.search-container h3 {
+  font-size: 18px;
+  color: white;
+  margin: 0;
+}
+
+.search-container input {
+  font-size: 16px;
+  padding: 6px 10px;
+  width: 260px;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  background-color: white;
+  color: #333;
+}
+
+.search-container button {
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #000 !important;
+  color: white !important;
+  border-radius: 6px;
+  padding: 6px 14px;
+}
+.search-container mat-icon {
+  font-size: 20px;
+  margin-right: 4px;
+  vertical-align: middle;
+  color: #f7f7f7;
+}
+
+/* 📋 表格區塊 */
+.table-container {
+  position: relative;
+  width: 60%;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+}
+
+/* 表頭 */
+th {
+  background-color: #1e1e1e !important;
+  color: white;
+  font-weight: 600;
+  text-align: center;
+  padding: 12px;
+}
+
+/* 奇偶行 */
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:nth-child(odd) {
+  background-color: #eaeaea;
+}
+
+/* 表格內容 */
+td {
+  text-align: center;
+  padding: 12px;
+  color: #333;
+}
+
+/* 🔴 可點擊的「2025」欄位 */
+.clickable {
+  cursor: pointer;
+  color: #111;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.clickable:hover {
+  color: #666;
+}
+
+/* 🔗 查詢連結 */
+.table-link {
+  text-decoration: underline;
+  color: #000;
+  transition: color 0.3s ease;
+}
+
+.table-link:hover {
+  color: #444;
+}
+
+/* 🔽 分頁器 */
+mat-paginator {
+  background-color:  #a7a1a1 !important;
+  border-radius: 6px;
+  margin-top: 16px;
+}
+
+/* row hover */
+.mat-mdc-row:hover .mat-mdc-cell {
+  border-color: currentColor;
+}
+/* 🔘 全站按鈕動畫效果 */
+button {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* 滑過放大、加陰影 */
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* 按下時稍微縮小 */
+button:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+

@@ -1,0 +1,16 @@
+button
+{
+  font-size: 18px; /* 增加字體大小 */
+  padding: 10px 20px; /* 增加內邊距，使按鈕更大 */
+  border-radius: 5px; /* 圓角 */
+  background-color: #8B4513; /* 背景顏色 */
+  color: white; /* 字體顏色 */
+  border: none; /* 去除邊框 */
+  cursor: pointer; /* 改變鼠標樣式 */
+  transition: background-color 0.3s ease; /* 增加背景顏色的過渡效果 */
+  margin-right: 10px
+}
+.outside{
+  width: 350px;
+  background-color:lightgray;
+}

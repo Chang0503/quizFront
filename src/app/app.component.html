@@ -1,0 +1,27 @@
+<mat-toolbar class="toolbar">
+  <!-- 左侧的 Home 按钮 -->
+  <button (click)="home()">
+    <mat-icon>home</mat-icon>
+  </button>
+  <h1 style="color: azure;">薪水不漲，海浪會 —————— 歡迎來到睏中島</h1>
+  <!-- 右侧的其他按钮，放在一个 div 容器内 -->
+  <div class="toolbar-right">
+    <button (click)="car()">
+      <mat-icon>directions_car</mat-icon>
+      <p>訂車</p>
+    </button>
+    <button (click)="parking()">
+      <mat-icon>local_parking</mat-icon>
+      <p>停車場</p>
+    </button>
+    <button (click)="hotel()">
+      <mat-icon>local_hotel</mat-icon>
+      <p>民宿推薦</p>
+    </button>
+    <button (click)="food()">
+      <mat-icon>restaurant</mat-icon>
+      <p>美食推薦</p>
+    </button>
+  </div>
+</mat-toolbar>
+<router-outlet></router-outlet>

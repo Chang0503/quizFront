@@ -1,0 +1,36 @@
+<h2>{{ title }}</h2>
+<p>{{ direction }}</p>
+
+
+
+@for (feedback of feedbackVoList; track feedback.phone) {
+  <span class="arrow" [class.expanded]="isExpanded(feedback.phone)">
+  {{ isExpanded(feedback.phone) ? '▲' : '▼' }}
+</span>
+
+  <div class="feedback-card">
+    <h3 (click)="toggleExpand(feedback.phone)" class="clickable-name">
+      填寫者：{{ feedback.userName }}
+      <span class="arrow">
+        {{ isExpanded(feedback.phone) ? '▲' : '▼' }}
+      </span>
+    </h3>
+
+    @if (isExpanded(feedback.phone)) {
+      <div class="feedback-details">
+        <p>電話：{{ feedback.phone }}</p>
+        <p>Email：{{ feedback.email }}</p>
+        <p>年齡：{{ feedback.age }}</p>
+        <p>填寫日期：{{ feedback.fillinDate }}</p>
+
+        <ul>
+          @for (ans of feedback.answerVoList; track ans.quesId) {
+            <li>
+              <strong>答案：</strong> {{ ans.answerList ? ans.answerList.join(', ') : '' }}
+            </li>
+          }
+        </ul>
+      </div>
+    }
+  </div>
+}

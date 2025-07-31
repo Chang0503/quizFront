@@ -1,0 +1,46 @@
+/* 外部容器，負責顯示圖片和排版 */
+.image-container {
+  display: flex;
+  flex-wrap: wrap;  /* 使圖片換行 */
+  gap: 20px;  /* 設置圖片之間的間距 */
+  justify-content: center;  /* 水平居中 */
+  margin-top: 20px;
+}
+
+/* 每個圖片項目 */
+.image-item {
+  display: flex;  /* 使用 flexbox 排列圖片和文字 */
+  width: 48%;  /* 每行顯示 2 張圖片 */
+  text-align: left;  /* 文字區域置中 */
+  margin-bottom: 20px;  /* 讓每張圖片底下有一些空間 */
+  gap: 20px;  /* 圖片與文字之間的間距 */
+}
+
+/* 圖片樣式 */
+.image {
+  width: 390px;  /* 設定圖片固定寬度 */
+  height: 250px;  /* 設定圖片固定高度 */
+  object-fit: cover;  /* 使圖片按比例填滿容器且不會變形 */
+  border-radius: 8px;  /* 圓角邊框 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* 圖片陰影效果 */
+}
+.caption {
+  font-size: 20px;  /* 調整文字大小 */
+  color: #333;  /* 文字顏色 */
+  line-height: 1.5;  /* 調整文字行高 */
+  flex: 1;  /* 讓文字區域填滿剩餘空間 */
+}
+/* 調整 ul 樣式，讓它與圖片下緣對齊 */
+.caption ul {
+  padding-left: 0px;  /* 添加內邊距，避免文字太接近左邊 */
+}
+/* 每個 ul 項目 */
+.caption ul li {
+  display: flex;
+  font-size: 18px;  /* 調整文字大小 */
+  margin-bottom: 5px;  /* 項目之間的間距 */
+}
+.caption mat-icon {
+  font-size: 20px;  /* 這裡可以根據需要調整大小 */
+}
+

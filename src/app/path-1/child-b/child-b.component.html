@@ -1,0 +1,87 @@
+<div class="out">
+  <!-- 🔹 登出按鈕 -->
+  <div class="logout-container">
+    <button mat-raised-button color="warn" (click)="back()"><mat-icon>lock_open</mat-icon>登出</button>
+  </div>
+
+  <!-- 🔹 標題 -->
+  <h1 class="title">管理員管理系統</h1>
+
+  <!-- 🔹 搜尋區塊 -->
+  <div class="search-container">
+    <h3 style="color: black;">標題：</h3>
+    <input type="text" (input)="changeMonth($event)" [(ngModel)]="inputData">
+    <button mat-raised-button color="primary"><mat-icon>search</mat-icon>搜尋</button>
+  </div>
+
+  <!-- 🔹 新增按鈕 -->
+  <div style="padding-left: 150px">
+    <button mat-icon-button color="accent" (click)="add()" style="border-radius: 30%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: all 0.3s ease-in-out; padding: 5px;margin-bottom: 5px;width: 50px;">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+
+  <!-- 🔹 表格 -->
+  <div class="table-container mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+
+      <!-- 操作 -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> 操作 </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="accent" (click)="editElement(element)">
+            <mat-icon>settings</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteElement(element)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <!-- 標題 -->
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef> 標題 </th>
+        <td mat-cell *matCellDef="let element">
+          <a style="cursor: pointer; text-decoration: underline; color: #1976d2;"
+          (click)="navigateToWrite(element.id)">
+          {{element.title}}
+          </a>
+          </td>
+      </ng-container>
+
+      <!-- 說明 -->
+      <ng-container matColumnDef="direction">
+        <th mat-header-cell *matHeaderCellDef> 說明 </th>
+        <td mat-cell *matCellDef="let element">{{element.direction}}</td>
+      </ng-container>
+
+      <!-- 開始日期 -->
+      <ng-container matColumnDef="startDate">
+        <th mat-header-cell *matHeaderCellDef> 開始時間 </th>
+        <td mat-cell *matCellDef="let element">{{element.startDate}}</td>
+      </ng-container>
+
+      <!-- 結束日期 -->
+      <ng-container matColumnDef="endDate">
+        <th mat-header-cell *matHeaderCellDef> 結束時間 </th>
+        <td mat-cell *matCellDef="let element">{{element.endDate}}</td>
+      </ng-container>
+
+      <!-- 是否發布 -->
+      <ng-container matColumnDef="published">
+        <th mat-header-cell *matHeaderCellDef> 已發布 </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-icon color="primary" *ngIf="element.published">check_circle</mat-icon>
+          <mat-icon color="warn" *ngIf="!element.published">cancel</mat-icon>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <!-- 分頁 -->
+    <mat-paginator [pageSizeOptions]="[6,12]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>
+

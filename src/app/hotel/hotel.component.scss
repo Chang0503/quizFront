@@ -1,0 +1,178 @@
+.hotel-container {
+  display: flex;
+  padding: 2rem;
+  gap: 2rem;
+
+  .filters {
+    flex: 0 0 220px;
+    background: #e7e3e3;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+
+
+    h2 {
+      font: size 30px;
+      margin-bottom: 1rem;
+    }
+
+    label {
+      display: block;
+      margin: 0.5rem 0;
+      font-size: 1rem;
+      cursor: pointer;
+      font-size: 20px;
+    }
+  }
+
+  .hotel-list {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+
+    .hotel-card {
+      display: flex;
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      }
+
+      .hotel-img {
+        width: 220px;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .hotel-info {
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        flex: 1;
+
+        .header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          h3 {
+            font-size: 1.3rem;
+            margin: 0;
+          }
+
+          .rating {
+            text-align: right;
+
+            .score {
+              background-color: #003580;
+              color: #fff;
+              padding: 0.4rem 0.6rem;
+              border-radius: 6px;
+              font-weight: bold;
+              margin-right: 0.3rem;
+            }
+
+            small {
+              font-size: 0.9rem;
+              color: #555;
+            }
+          }
+        }
+
+        .location {
+          margin: 0.3rem 0;
+          font-size: 0.95rem;
+          color: #666;
+        }
+
+        .tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.5rem;
+          margin-bottom: 0.5rem;
+
+          .tag {
+            background-color: #eaf4ff;
+            color: #0071c2;
+            font-size: 0.85rem;
+            padding: 0.3rem 0.7rem;
+            border-radius: 999px;
+            font-weight: bold;
+          }
+        }
+
+        .quote {
+          font-style: italic;
+          color: #444;
+          margin-bottom: 1rem;
+        }
+
+        .footer {
+          position: relative;
+          display: flex;
+          justify-content: flex-end;
+          align-items: flex-end;
+          gap: 0.5rem;
+          margin-top: 1rem;
+
+          .price {
+            margin-right: auto;
+
+            strong {
+              font-size: 1.2rem;
+              color: #d70018;
+            }
+
+            small {
+              font-size: 0.8rem;
+              color: #666;
+            }
+          }
+
+          .intro-btn {
+            position: relative;
+            background-color: #0071c2;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9rem;
+            white-space: nowrap;
+
+            &:hover {
+              background-color: #005999;
+            }
+          }
+
+          .description-box {
+
+            position: absolute;
+            bottom: 50%;
+            left: 80%;
+            transform: translateX(-100%);
+            width: 300px;
+            background: #f0f8ff;
+            color: #333;
+            font-size: 0.9rem;
+            padding: 0.8rem 0.8rem;
+            border-radius: 8px;
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+            white-space: normal;
+            z-index: 10;
+          }
+        }
+          }
+        }
+        }
+      }
+
+

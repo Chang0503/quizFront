@@ -1,0 +1,159 @@
+.slider-container {
+  width: 100%;  /* Ensure full width of the container */
+  max-width: 1000px;  /* Set a maximum width to control its size */
+  height: 500px;  /* Define the height for the slider */
+  overflow: hidden;
+  position: relative;
+  margin: 20px auto 0px auto;
+
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* The slider track for holding all images */
+.slider-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  height: 100%;  /* Ensure the track fills the container's height */
+}
+
+/* Each individual slide (image) */
+.slide {
+  width: 100%;
+  flex-shrink: 0; /* 每張圖片固定寬度 */
+  object-fit: cover;
+}
+
+/* Dots container placed below images */
+.dots {
+  position: absolute;
+  bottom: 10px;  /* Position the dots 10px from the bottom */
+  left: 50%;
+  transform: translateX(-50%);  /* Center the dots horizontally */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+/* Dot styles */
+.dot {
+  width: 12px;
+  height: 12px;
+  margin: 5px;
+  background-color: #bbb;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* Active dot - current image */
+.dot.active {
+  background-color: #333;
+}
+
+h1 {
+  padding-left: 10%;
+  margin-top: 5%;
+}
+
+//熱門景點
+.hover-gallery {
+  display: flex;
+  margin: 5px 10%;
+  height: 300px;
+  overflow-x: auto; /* 水平滾動 */
+  gap: 15px; /* 圖片間距 */
+  justify-content: flex-start; /* 圖片從左到右排列 */
+  transition: transform 0.3s ease;
+}
+
+.image-wrapper {
+  flex: 1; /* 每個圖片的基礎寬度 */
+  transition: flex 0.3s ease; /* 放大縮小過渡效果 */
+  overflow: hidden;
+  position: relative;
+  cursor: pointer; /* 設置懸停時為可點擊狀態 */
+  border-radius: 10px;
+
+  /* 當圖片被 hover 時，將圖片放大並且顯示文字 */
+  &.active {
+    flex: 2; /* 放大圖片 */
+    img {
+      transform: scale(1.1); /* 放大圖片 */
+    }
+    .label {
+      opacity: 1; /* 顯示文字 */
+    }
+  }
+
+  /* 非 hover 時，圖片保持原始大小，並且文字隱藏 */
+  &:not(.active) {
+    flex: 1; /* 縮小圖片 */
+    img {
+      transform: scale(1); /* 還原圖片大小 */
+    }
+    .label {
+      opacity: 0; /* 隱藏文字 */
+    }
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 保持圖片比例 */
+    transition: transform 0.3s ease; /* 圖片放大時的過渡效果 */
+    border-radius: 10px;
+  }
+
+  .label {
+    position: absolute;
+    bottom: 10px; /* 文字顯示在圖片左下角 */
+    left: 10px;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    transition: opacity 0.3s ease; /* 文字顯示過渡效果 */
+    opacity: 0; /* 初始隱藏文字 */
+    text-shadow: 3px 3px 8px rgb(0, 0, 0); /* 文字描邊效果 */
+  }
+}
+
+//實用資訊
+.image-container {
+  margin: 5px 7%;
+  display: flex;
+  gap: 30px;  /* 設置圖片之間的間距 */
+  justify-content: center;  /* 水平居中 */
+  margin-top: 20px;
+
+.image-tell {
+  width: 30%;
+  text-align: left;
+  margin-bottom: 20px;  /* 讓每張圖片底下有一些空間 */
+  gap: 20px;  /* 圖片與文字之間的間距 */
+}
+.tell-image {
+  width: 400px;  /* 設定圖片固定寬度 */
+  height: 250px;  /* 設定圖片固定高度 */
+  object-fit: cover;  /* 使圖片按比例填滿容器且不會變形 */
+  border-radius: 8px;  /* 圓角邊框 */
+
+}
+.caption {
+  font-size: 20px;  /* 調整文字大小 */
+  color: #0f0e0e;  /* 文字顏色 */
+  line-height: 1.5;  /* 調整文字行高 */
+  flex: 1;  /* 讓文字區域填滿剩餘空間 */
+}
+
+/* 每個 ul 項目 */
+.ul li {
+  display: flex;
+  font-size: 18px;  /* 調整文字大小 */
+  margin-bottom: 5px;  /* 項目之間的間距 */
+}
+
+}
+
+

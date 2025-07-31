@@ -1,0 +1,16 @@
+<h2 mat-dialog-title class="dialog-title">確認預約資料</h2>
+
+<mat-dialog-content class="dialog-content">
+  <p><strong>時間：</strong>{{ data.time | date:'shortTime' }}</p>
+  <p><strong>日期：</strong>{{ data.startDate }} ~ {{ data.endDate }}</p>
+  <p><strong>姓名：</strong>{{ data.name }}</p>
+  <p><strong>電話：</strong>{{ data.phone }}</p>
+  <p><strong>車牌：</strong>{{ data.license }}</p>
+  <p><strong>備註：</strong>{{ data.note }}</p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="dialog-actions">
+  <button mat-raised-button color="primary" mat-dialog-close>返回</button>
+  <button mat-button (click)="onSubmit()">送出</button>
+
+</mat-dialog-actions>

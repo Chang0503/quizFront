@@ -1,0 +1,46 @@
+<div class="outside">
+  @if (dialogData) {
+    <div class="input-container">
+      <!-- 時間顯示區域 -->
+      <div class="time">
+        {{ dialogData.startTime || dialogData.startDate }} ~ {{ dialogData.endTime || dialogData.endDate }}
+      </div>
+
+      <!-- 標題（加 routerLink 如果你想點標題跳轉）-->
+      <h1 class="title">
+          {{ dialogData.title }}
+      </h1>
+
+      <!-- 說明 -->
+      <h2 class="directions">{{ dialogData.direction }}</h2>
+    </div>
+
+    <div class="choose">
+      @for (dialogAnswer of dialogData.questions; track $index) {
+        <div class="question-name">
+          <p>{{ dialogAnswer.question }}</p>
+        </div>
+
+        <div class="choose-option">
+          <p><strong>題型：</strong>{{ dialogAnswer.type }}</p>
+
+          @if (dialogAnswer.type !== '文字題' && dialogAnswer.options?.length > 0) {
+            <ul>
+              @for (opt of dialogAnswer.options; track $index) {
+                <li>{{ opt }}</li>
+              }
+            </ul>
+          } @else {
+            <p><em>（文字輸入）</em></p>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="button">
+      <button (click)="goBackToA()">返回</button>
+    </div>
+  } @else {
+    <p>載入中...</p>
+  }
+</div>

@@ -1,0 +1,55 @@
+<div class="hotel-container">
+  <div class="filters">
+    <h2>篩選條件</h2>
+    <label><input type="checkbox" [(ngModel)]="filters.breakfast" /> 🍳 早餐</label>
+    <label><input type="checkbox" [(ngModel)]="filters.swim" /> 🏊‍♂️ 泳池</label>
+    <label><input type="checkbox" [(ngModel)]="filters.tub" /> 🛁 浴缸</label>
+    <label><input type="checkbox" [(ngModel)]="filters.ocean" /> 🌊 海景</label>
+  </div>
+
+  <div class="hotel-list">
+    @for (hotel of filterHotels(); track $index) {
+      <div class="hotel-card">
+        <img [src]="hotel.src" [alt]="hotel.name" class="hotel-img" />
+
+        <div class="hotel-info">
+          <div class="header">
+            <h3>{{ hotel.name }}</h3>
+            <div class="rating">
+              <span class="score">{{ hotel.rating }}</span>
+              <small>{{ hotel.reviewCount }} 則評價</small>
+            </div>
+          </div>
+
+          <p class="location">📍 {{ hotel.location || '小琉球某個神秘角落' }}</p>
+
+          <div class="tags">
+            @if(hotel.breakfast) { <span class="tag">🍳 早餐</span> }
+            @if(hotel.swim) { <span class="tag">🏊‍♂️ 泳池</span> }
+            @if(hotel.tub) { <span class="tag">🛁 浴缸</span> }
+            @if(hotel.ocean) { <span class="tag">🌊 海景</span> }
+            @if(hotel.kid) { <span class="tag">👶 親子友善</span> }
+          </div>
+
+          <p class="quote">「{{ hotel.comment || '乾淨又舒適，下次還會再來！' }}」</p>
+
+          <div class="footer">
+            <div class="price">
+              <strong>TWD {{ hotel.price || '3,280' }}</strong><br />
+              <small>每晚價格 · 含稅與費用</small>
+            </div>
+            <button class="intro-btn" (click)="toggleDescription(hotel)">
+              簡介
+            </button>
+
+            @if (hotel.showDescription) {
+              <div class="description-box">
+                {{ hotel.description }}
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

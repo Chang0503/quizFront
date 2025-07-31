@@ -1,0 +1,46 @@
+<div class="slider-container">
+  <div class="slider-track" [style.transform]="'translateX(-' + currentIndex * 100 + '%)'">
+    @for (img of images; track $index) {
+    <img [src]="img" class="slide" />
+    }
+  </div>
+
+  <div class="dots">
+    @for (_ of images; let i = $index; track i) {
+    <span class="dot" [class.active]="i === currentIndex" (click)="goToSlide(i)"></span>
+    }
+  </div>
+
+</div>
+<h1><mat-icon>photo_camera</mat-icon>熱門景點</h1>
+<div class="hover-gallery">
+  @for (img of hotImages; let i = $index; track i) {
+    <div
+      class="image-wrapper"
+      [class.active]="hoverIndex === i"
+      (mouseenter)="hoverIndex = i"
+      (mouseleave)="hoverIndex = -1"
+    >
+      <img [src]="img.src" alt="Image" />
+      <div class="label">{{ img.label }}</div>
+    </div>
+  }
+</div>
+
+<h1><mat-icon>notifications_active</mat-icon>實用資訊告訴你</h1>
+<div class="image-container">
+  @for (img of tellImages; let i = $index; track i) {
+    <div class="image-tell">
+      <img [src]="img.src" alt="Image" class="tell-image">
+      <div class="caption">
+        <ul>
+          @for (description of [img.description1, img.description2, img.description3, img.description4]; track $index) {
+            @if (description) {
+              <li>{{ description }}</li>
+            }
+          }
+        </ul>
+      </div>
+    </div>
+  }
+</div>

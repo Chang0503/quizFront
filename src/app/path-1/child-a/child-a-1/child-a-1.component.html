@@ -1,0 +1,51 @@
+<div class="outside">
+
+    <div class="input-container">
+      <!-- 時間顯示區域 -->
+      <div class="time">
+        {{userdata.startDate}} ~ {{userdata.endDate}}
+      </div>
+
+      <!-- 標題區塊 -->
+      <h1 class="title">{{userdata.title}}</h1>
+      <h2 class="directions">{{userdata.direction}}</h2>
+  <div class="input">
+    <div class="input-item">
+      <label>姓名: {{ userdata.name }}</label>
+    </div>
+    <div class="input-item">
+      <label>手機: {{ userdata.phone }}</label>
+    </div>
+    <div class="input-item">
+      <label>E-mail: {{ userdata.email }}</label>
+    </div>
+    <div class="input-item">
+      <label>人數: {{ userdata.number }}</label>
+    </div>
+  </div>
+    <div class="choose">
+      @for (question of userdata.array1; track $index) {
+        <div class="question-name">
+        <p>{{ question.questName }}</p>
+        </div>
+          <div class="choose-option">
+            <p>{{ question.answers }}</p>
+
+            @if(question.type == "Multi"){
+              @for(BooleanData of question.choose; track $index){
+                @if(BooleanData.Boolean == true){
+                  {{ BooleanData.chooseName }}
+                }
+              }
+            }</div>
+        }</div>
+
+  <div class="button">
+    <button (click)="back()">返回</button>
+    <button (click)="enter()">送出</button>
+    </div>
+
+  </div>
+</div>
+
+

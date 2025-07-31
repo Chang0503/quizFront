@@ -1,0 +1,23 @@
+<div class="outside">
+  <h2 mat-dialog-title>登入</h2>
+
+  <mat-dialog-content>
+    <p>{{ data.message }}</p>
+
+    <mat-form-field appearance="outline" style="width: 300px;">
+      <mat-label>帳號</mat-label>
+      <input matInput [(ngModel)]="user">
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="outline" style="width: 300px;">
+      <mat-label>密碼</mat-label>
+      <input matInput type="password" [(ngModel)]="password">
+    </mat-form-field>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button (click)="cancel()">取消</button>
+  <button mat-raised-button color="primary" (click)="login()">登入</button>
+</mat-dialog-actions>
+</div>

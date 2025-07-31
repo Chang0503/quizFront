@@ -1,0 +1,41 @@
+<h2 mat-dialog-title>預約查詢</h2>
+
+<mat-dialog-content class="dialog-content">
+
+  <div class="form-section">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>電話</mat-label>
+      <input matInput [(ngModel)]="phone" placeholder="輸入電話">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>車牌</mat-label>
+      <input matInput [(ngModel)]="license" placeholder="輸入車牌">
+    </mat-form-field>
+
+    <div class="action-btn">
+      <button mat-raised-button color="primary" (click)="findReservation()">查詢</button>
+    </div>
+  </div>
+
+  <div class="result-section">
+    @if(reservationData){
+    <h2>查詢結果</h2>
+    <mat-card>
+      <mat-card-content>
+        <p><strong>車牌：</strong>{{ reservationData.license }}</p>
+        <p><strong>電話：</strong>{{ reservationData.phone }}</p>
+        <p><strong>日期：</strong>{{ reservationData.startDate }} ~ {{ reservationData.endDate }}</p>
+        <p><strong>時間：</strong>{{ reservationData.time | date:'shortTime' }}</p>
+        <p><strong>姓名：</strong>{{ reservationData.name }}</p>
+        <p><strong>備註：</strong>{{ reservationData.note }}</p>
+      </mat-card-content>
+    </mat-card>
+  }
+  </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="closeDialog()">關閉</button>
+</mat-dialog-actions>

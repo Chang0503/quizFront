@@ -1,0 +1,60 @@
+/* toolbar 样式 */
+.toolbar {
+  display: flex;
+  justify-content: space-between;  /* 两边内容的间距 */
+  align-items: center;  /* 垂直居中对齐 */
+  background-color: #1C3B61; /* 背景颜色设置为深蓝色 */
+  padding: 0 10px; /* 内边距调整 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 添加阴影 */
+  height: 56px; /* 设置高度，和 material 的默认高度一致 */
+}
+
+/* 右侧按钮容器 */
+.toolbar-right {
+  display: flex;
+  align-items: center;  /* 垂直居中 */
+  justify-content: flex-end;  /* 右对齐 */
+  gap: 20px; /* 按钮之间的间距 */
+}
+
+/* toolbar 按钮的样式 */
+mat-toolbar button {
+  display: flex;
+  flex-direction: column;  /* 图标与文本纵向排列 */
+  align-items: center;  /* 图标和文本水平居中对齐 */
+  padding: 5px 15px; /* 按钮内边距 */
+  min-width: 80px; /* 设置最小宽度，避免按钮过小 */
+  border-radius: 8px; /* 圆角 */
+  transition: background-color 0.3s ease-in-out; /* 按钮点击效果 */
+  color: #fff; /* 文本和图标默认颜色为白色 */
+  background-color: #1C3B61; /* 按钮背景色为深蓝色 */
+  border: none; /* 按钮边框去除 */
+}
+
+/* 按钮在 hover 或点击时的样式 */
+mat-toolbar button:hover {
+  background-color: #2C4E7A; /* 鼠标悬停时的背景色 */
+}
+
+/* 激活状态按钮样式 */
+mat-toolbar button:focus {
+  background-color: #2C4E7A; /* 激活时背景颜色 */
+}
+
+/* 图标的大小 */
+mat-toolbar mat-icon {
+  font-size: 24px; /* 图标大小 */
+  color: #fff; /* 图标颜色为白色 */
+}
+
+/* 文本样式 */
+mat-toolbar p {
+  margin: 0; /* 移除文本的默认外边距 */
+  font-size: 12px; /* 文本大小 */
+  color: #fff; /* 文本颜色为白色 */
+}
+
+/* 可选的间距调整，增加按钮之间的间距 */
+mat-toolbar button + button {
+  margin-left: 20px;
+}

@@ -1,0 +1,29 @@
+<h2 mat-dialog-title class="dialog-title">編輯</h2>
+
+<mat-dialog-content class="dialog-content">
+  <mat-form-field appearance="fill" class="form-field" style="background-color: #f0f0f0;">
+    <mat-label>月份</mat-label>
+    <input matInput [(ngModel)]="editedElement.name">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="form-field" style="background-color: #f0f0f0;">
+    <mat-label>備註</mat-label>
+    <input matInput [(ngModel)]="editedElement.weight">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="form-field" style="background-color: #f0f0f0;">
+    <mat-label>開始時間</mat-label>
+    <input matInput [(ngModel)]="editedElement.symbol">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="form-field" style="background-color: #f0f0f0;">
+    <mat-label>結束時間</mat-label>
+    <input matInput [(ngModel)]="editedElement.over">
+  </mat-form-field>
+
+<div mat-dialog-actions class="dialog-actions">
+  <button mat-button (click)="onCancel()">取消</button>
+  <button mat-button style="margin-right: 20px;"  color="primary" (click)="onSave()">儲存</button>
+</div>
+</mat-dialog-content>
+

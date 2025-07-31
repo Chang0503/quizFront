@@ -1,0 +1,47 @@
+.dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.action-btn {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.result-section {
+  margin-top: 16px;
+
+  mat-card {
+    background: #e1d3d3;
+    padding: 12px;
+  }
+
+  h2 {
+    margin-bottom: 8px;
+  }
+
+  p {
+    color: rgb(32, 31, 31);
+    margin: 4px 0;
+    font-size: 18px;
+  }
+}
+button{
+  background-color: #1a5fa8; /* 藍色背景 */
+  color: white; /* 白色文字 */
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #0f345d; /* 滑鼠懸停時顏色變深 */
+  transform: scale(1.05); /* 懸停時輕微放大 */
+}

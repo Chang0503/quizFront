@@ -1,0 +1,66 @@
+<div class="reservation-header">
+  <h2>填寫預約資料</h2>
+  <h4>地址:高雄市前鎮區XX路一號</h4>
+    <button (click)="find()">
+      <span class="text">預約查詢</span>
+      <div class="waving-hand">
+        <mat-icon style="margin-top: 6.5px;">arrow_back</mat-icon> <!-- 向左箭頭 -->
+      </div>
+    </button>
+</div>
+
+<mat-card class="reservation-form">
+  <mat-card-content>
+    <!-- 日期區間 -->
+    <mat-form-field appearance="fill">
+      <mat-label>日期</mat-label>
+      <mat-date-range-input [rangePicker]="datePicker">
+        <input matStartDate placeholder="開始" #startDateInput>
+        <input matEndDate placeholder="結束" #endDateInput>
+      </mat-date-range-input>
+      <mat-datepicker-toggle matIconSuffix [for]="datePicker"></mat-datepicker-toggle>
+      <mat-date-range-picker #datePicker></mat-date-range-picker>
+    </mat-form-field>
+
+    <!-- 時間選擇 -->
+    <mat-form-field appearance="fill">
+      <mat-label>抵達時間</mat-label>
+      <input
+        matInput
+        [formControl]="formControl"
+        [matTimepicker]="timePicker"
+        matTimepickerMin="08:00"
+        matTimepickerMax="17:00">
+      <mat-timepicker-toggle matIconSuffix [for]="timePicker" />
+      <mat-timepicker #timePicker />
+    </mat-form-field>
+
+    <!-- 姓名 -->
+    <mat-form-field appearance="fill">
+      <mat-label>姓名</mat-label>
+      <input matInput #nameInput placeholder="莓李茂">
+    </mat-form-field>
+
+    <!-- 電話 -->
+    <mat-form-field appearance="fill">
+      <mat-label>電話</mat-label>
+      <input matInput #phoneInput placeholder="0912345678">
+    </mat-form-field>
+
+    <!-- 車牌 -->
+    <mat-form-field appearance="fill">
+      <mat-label>車牌</mat-label>
+      <input matInput #licenseInput placeholder="ABC-1234">
+    </mat-form-field>
+
+    <!-- 備註 -->
+    <mat-form-field appearance="fill">
+      <mat-label>備註</mat-label>
+      <textarea matInput #noteInput placeholder="沒有的話填無"></textarea>
+    </mat-form-field>
+  </mat-card-content>
+
+  <mat-card-actions style="justify-content: flex-end;">
+    <button mat-raised-button color="primary" (click)="next()">下一步</button>
+  </mat-card-actions>
+</mat-card>
