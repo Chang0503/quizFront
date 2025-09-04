@@ -47,6 +47,7 @@ export class ChildBComponent implements OnInit, AfterViewInit {
 if (this.service.getReturnFlag()) {
     this.service.setReturnFlag(false); // ✅ 用完記得關掉 flag
     this.dialog.open(Dialog2Component);    // ✅ 打開 dialog 並載入資料
+    this.loadAllPark();
   }
 
     this.loadQuizzes();
@@ -143,5 +144,51 @@ if (this.service.getReturnFlag()) {
   }
   navigateToWrite(id: number): void {
   this.router.navigate(['/write', id]);
+}
+currentTable: 'connect' | 'park' = 'connect';
+
+switchTable() {
+  this.currentTable = this.currentTable === 'connect' ? 'park' : 'connect';
+}
+
+
+//停車場
+parkData: any[] = [];
+parkDisplayedColumns: string[] = ['id', 'name', 'date', 'actions'];
+selectedPark: any = null;
+
+// ngOnInit() {
+//   this.loadAllPark();
+// }
+
+loadAllPark() {
+  this.apiService.getAllInfos().subscribe({
+    next: (res: any) => {
+      if(res.code === 200) {
+        this.parkData = res.list || []; // 假設 API 回傳 list
+      } else {
+        alert(res.message || '讀取停車場資料失敗');
+      }
+    },
+    error: (err) => console.error(err)
+  });
+}
+
+// 查看單筆
+viewInfo(phone: string) {
+  this.apiService.getInfo(phone).subscribe({
+    next: (res: any) => {
+      if (res.code === 200) {
+        this.selectedPark = res.data || res; // 後端可能直接回 data 或 res
+      } else {
+        alert(res.message || '查無資料');
+      }
+    },
+    error: (err) => {
+      console.error(err);
+      alert('查詢失敗');
+    }
+  });
+
 }
 }

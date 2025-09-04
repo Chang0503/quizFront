@@ -151,3 +151,39 @@ button:active {
   transform: scale(0.97);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
+.tables-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  height: 600px; /* 根據表格高度調整 */
+}
+
+.connect, .park {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  transition: transform 0.5s ease-in-out;
+}
+
+/* 初始狀態：connect 顯示，park 在右邊 */
+.connect {
+  transform: translateX(0);
+}
+.park {
+  transform: translateX(100%);
+}
+
+/* active 狀態切換 */
+.connect.active {
+  transform: translateX(0);
+}
+.connect:not(.active) {
+  transform: translateX(-100%);
+}
+
+.park.active {
+  transform: translateX(0);
+}
+.park:not(.active) {
+  transform: translateX(100%);
+}
