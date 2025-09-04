@@ -57,9 +57,8 @@ getFeedbackByQuizId(quizId: number) {
   return this.http.delete(`${this.baseUrl}/park/delete`, { params });
 }
   getInfo(phone: string): Observable<any> {
-    const params = new HttpParams().set('phone', phone);
-    return this.http.get(`${this.baseUrl}/park/getInfo`, { params} );
-    }
+  return this.http.get(`${this.baseUrl}/park/getInfo?phone=${encodeURIComponent(phone.trim())}`);
+}
   getAllInfos(): Observable<any> {
     return this.http.get(`${this.baseUrl}/park/getAllInfo`);
   }

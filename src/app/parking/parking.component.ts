@@ -10,7 +10,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { ApiService } from '../@services/api.service'; // 改成你的 Service 路徑
-
+import { MatDialog } from '@angular/material/dialog';
+import { DialogParkingFindComponent } from '../dialog-parking-find/dialog-parking-find.component';
 @Component({
   selector: 'app-parking',
   providers: [provideNativeDateAdapter()],
@@ -42,7 +43,7 @@ export class ParkingComponent {
 
   allReservations: any[] = []; // 存放全部預約資料
 
-  constructor(private parkService: ApiService) {}
+  constructor(private parkService: ApiService, private dialog: MatDialog) {}
 
   // 新增預約
   createReservation() {
@@ -70,29 +71,16 @@ export class ParkingComponent {
 
   // 查詢單筆預約
   find() {
-    if(!this.form.phone) {
-      alert('請先輸入電話查詢');
-      return;
-    }
+  const dialogRef = this.dialog.open(DialogParkingFindComponent, {
+    width: '400px',
+    
+  });
 
-    this.parkService.getInfo(this.form.phone).subscribe({
-      next: (res) => {
-        if(res.code === 200) {
-          this.form = {
-            date: res.date,
-            time: res.time,
-            name: res.name,
-            phone: res.phone,
-            carNumber: res.carNumber,
-            remark: res.remark
-          };
-        } else {
-          alert(res.message);
-        }
-      },
-      error: (err) => console.error(err)
-    });
-  }
+  // afterClosed 可以不用傳 phone 了，如果只是打開查詢對話框
+  dialogRef.afterClosed().subscribe(() => {
+    // 可選：這裡做額外動作，例如重新載入列表
+  });
+}
 
   // 更新預約
   updateReservation() {
