@@ -45,4 +45,22 @@ getFeedbackByQuizId(quizId: number) {
     return this.http.post(`${this.baseUrl}/statistics`, null, { params });
   }
 
+  //停車場相關
+  create(req: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/park/create`, req);
+  }
+  update(req: any): Observable<any> {
+    return this.http.put(`${this.baseUrl}/park/update`, req);
+  }
+  delete(phone: string): Observable<any> {
+  const params = new HttpParams().set('phone', phone);
+  return this.http.delete(`${this.baseUrl}/park/delete`, { params });
+}
+  getInfo(phone: string): Observable<any> {
+    const params = new HttpParams().set('phone', phone);
+    return this.http.get(`${this.baseUrl}/park/getInfo`, { params} );
+    }
+  getAllInfos(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/park/getAllInfo`);
+  }
 }

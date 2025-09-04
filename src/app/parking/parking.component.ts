@@ -1,17 +1,15 @@
-import { Component,ChangeDetectionStrategy,ViewChild,ElementRef} from '@angular/core';
-import {FormsModule,FormControl,ReactiveFormsModule} from '@angular/forms';
-import {MatTimepickerModule} from '@angular/material/timepicker';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {provideNativeDateAdapter} from '@angular/material/core';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatTimepickerModule } from '@angular/material/timepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { DialogParkingComponent } from '../dialog-parking/dialog-parking.component';
-import { DialogParkingFindComponent } from '../dialog-parking-find/dialog-parking-find.component';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-
+import { ApiService } from '../@services/api.service'; // 改成你的 Service 路徑
 
 @Component({
   selector: 'app-parking',
@@ -30,63 +28,140 @@ import { MatIconModule } from '@angular/material/icon';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './parking.component.html',
-  styleUrl: './parking.component.scss'
+  styleUrls: ['./parking.component.scss']
 })
 export class ParkingComponent {
+  form: any = {
+    date: null,
+    time: '',
+    name: '',
+    phone: '',
+    carNumber: '',
+    remark: ''
+  };
 
-  @ViewChild('nameInput') nameInput!: ElementRef;
-  @ViewChild('phoneInput') phoneInput!: ElementRef;
-  @ViewChild('licenseInput') licenseInput!: ElementRef;
-  @ViewChild('noteInput') noteInput!: ElementRef;
-  @ViewChild('startDateInput') startDateInput!: ElementRef;
-  @ViewChild('endDateInput') endDateInput!: ElementRef;
+  allReservations: any[] = []; // 存放全部預約資料
 
-  formControl: FormControl<Date | null>;
-  minTime = new Date();
-  maxTime = new Date();
-  constructor(private dialog: MatDialog) {
-    const initialValue = new Date();
-    initialValue.setHours(8, 0, 0);
-    this.formControl = new FormControl(initialValue);
-  }
-  clearFormFields() {
-    this.nameInput.nativeElement.value = '';
-    this.phoneInput.nativeElement.value = '';
-    this.licenseInput.nativeElement.value = '';
-    this.noteInput.nativeElement.value = '';
-    this.startDateInput.nativeElement.value = '';
-    this.endDateInput.nativeElement.value = '';
-    this.formControl.setValue(null);
-  }
-  next() {
-    const name = this.nameInput.nativeElement.value?.trim();
-    const phone = this.phoneInput.nativeElement.value?.trim();
-    const license = this.licenseInput.nativeElement.value?.trim();
-    const note = this.noteInput.nativeElement.value?.trim();
-    const startDate = this.startDateInput.nativeElement.value?.trim();
-    const endDate = this.endDateInput.nativeElement.value?.trim();
-    const time = this.formControl.value;
+  constructor(private parkService: ApiService) {}
 
-
-    if (!name || !phone || !license || !note || !startDate || !endDate || !time) {
-      alert('請完整填寫所有欄位');
+  // 新增預約
+  createReservation() {
+    if (!this.form.phone || !this.form.name || !this.form.date || !this.form.time || !this.form.carNumber) {
+      alert('請填寫完整資料');
       return;
     }
 
-    const data = { name, phone, license, note, startDate, endDate, time };
-    const dialogRef = this.dialog.open(DialogParkingComponent, { data });
-
-    // ✅ 訂閱 dialog 傳出的 clearForm 事件
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result === true) {
-        this.clearFormFields();
+    this.parkService.create(this.form).subscribe({
+      next: (res) => {
+        if(res.code === 200) {
+          alert('預約成功');
+          this.resetForm();
+          this.getAllReservations(); // 更新列表
+        } else {
+          alert(res.message);
+        }
+      },
+      error: (err) => {
+        console.error(err);
+        alert('預約失敗');
       }
     });
   }
 
+  // 查詢單筆預約
   find() {
-    this.dialog.open(DialogParkingFindComponent, {
-      width: '400px',
+    if(!this.form.phone) {
+      alert('請先輸入電話查詢');
+      return;
+    }
+
+    this.parkService.getInfo(this.form.phone).subscribe({
+      next: (res) => {
+        if(res.code === 200) {
+          this.form = {
+            date: res.date,
+            time: res.time,
+            name: res.name,
+            phone: res.phone,
+            carNumber: res.carNumber,
+            remark: res.remark
+          };
+        } else {
+          alert(res.message);
+        }
+      },
+      error: (err) => console.error(err)
     });
+  }
+
+  // 更新預約
+  updateReservation() {
+    if (!this.form.phone) {
+      alert('請先輸入電話查詢後才能更新');
+      return;
+    }
+
+    this.parkService.update(this.form).subscribe({
+      next: (res) => {
+        if(res.code === 200) {
+          alert('更新成功');
+          this.resetForm();
+          this.getAllReservations();
+        } else {
+          alert(res.message);
+        }
+      },
+      error: (err) => {
+        console.error(err);
+        alert('更新失敗');
+      }
+    });
+  }
+
+  // 刪除預約
+  deleteReservation() {
+    if (!this.form.phone) {
+      alert('請先輸入電話刪除');
+      return;
+    }
+
+    this.parkService.delete(this.form.phone).subscribe({
+      next: (res) => {
+        if (res.code === 200) {
+          alert('刪除成功');
+          this.resetForm();
+          this.getAllReservations();
+        } else {
+          alert(res.message);
+        }
+      },
+      error: (err) => console.error(err)
+    });
+  }
+
+  // 取得全部預約
+  getAllReservations() {
+    this.parkService.getAllInfos().subscribe({
+      next: (res) => {
+        if(res.code === 200 || res.length) { // 假如返回 List
+          this.allReservations = res;
+        } else {
+          this.allReservations = [];
+        }
+      },
+      error: (err) => console.error(err)
+    });
+  }
+
+  // 重置表單
+  resetForm() {
+    this.form = {
+      date: null,
+      time: '',
+      name: '',
+      phone: '',
+      carNumber: '',
+      remark: ''
+    };
   }
 }
