@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { DialogComponent } from './dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet,FormsModule,MatIconModule,MatToolbarModule,],
