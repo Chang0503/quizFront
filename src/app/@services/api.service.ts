@@ -59,7 +59,9 @@ getFeedbackByQuizId(quizId: number) {
   getInfo(phone: string): Observable<any> {
   return this.http.get(`${this.baseUrl}/park/getInfo?phone=${encodeURIComponent(phone.trim())}`);
 }
-  getAllInfos(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/park/getAllInfo`);
-  }
+getAllInfos(date: string): Observable<any> {
+  return this.http.get(`${this.baseUrl}/park/getAllInfo`, { params: { date } });
+}
+
+
 }

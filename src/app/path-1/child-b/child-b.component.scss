@@ -187,3 +187,56 @@ button:active {
 .park:not(.active) {
   transform: translateX(100%);
 }
+
+.month-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+
+  .month-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0 20px;
+  }
+}
+
+.dates {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+
+  .date-item {
+    padding: 10px;
+    background: #f1f1f1;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+      background: #1976d2;
+      color: #fff;
+    }
+  }
+}
+
+.detail-section {
+    max-height: 200px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+
+}
+
+/* 個別資訊卡片 */
+.park-item {
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+}

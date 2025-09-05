@@ -51,13 +51,21 @@ export class ParkingComponent {
       alert('請填寫完整資料');
       return;
     }
+ // 轉成 yyyy-MM-dd 字串，避免時區問題
+  if (this.form.date instanceof Date) {
+  const d = this.form.date;
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
+  this.form.date = `${yyyy}-${mm}-${dd}`;
+}
 
     this.parkService.create(this.form).subscribe({
       next: (res) => {
         if(res.code === 200) {
           alert('預約成功');
           this.resetForm();
-          this.getAllReservations(); // 更新列表
+          
         } else {
           alert(res.message);
         }
@@ -94,7 +102,7 @@ export class ParkingComponent {
         if(res.code === 200) {
           alert('更新成功');
           this.resetForm();
-          this.getAllReservations();
+          
         } else {
           alert(res.message);
         }
@@ -118,7 +126,7 @@ export class ParkingComponent {
         if (res.code === 200) {
           alert('刪除成功');
           this.resetForm();
-          this.getAllReservations();
+          
         } else {
           alert(res.message);
         }
@@ -127,20 +135,7 @@ export class ParkingComponent {
     });
   }
 
-  // 取得全部預約
-  getAllReservations() {
-    this.parkService.getAllInfos().subscribe({
-      next: (res) => {
-        if(res.code === 200 || res.length) { // 假如返回 List
-          this.allReservations = res;
-        } else {
-          this.allReservations = [];
-        }
-      },
-      error: (err) => console.error(err)
-    });
-  }
-
+ 
   // 重置表單
   resetForm() {
     this.form = {

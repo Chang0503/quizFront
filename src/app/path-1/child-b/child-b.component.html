@@ -92,53 +92,38 @@
       </div>
 
       <div class="park" [class.active]="currentTable === 'park'">
-        <h2>停車場資料</h2>
+        <h2>停車場日期</h2>
 
-        <!-- 表格 -->
-        <table mat-table [dataSource]="parkData" class="mat-elevation-z8">
+        <!-- 月份切換 -->
+        <div class="month-nav">
+          <button mat-button (click)="prevMonth()">《 上一月</button>
+          <span class="month-title">{{ currentMonth + 1 }} 月</span>
+          <button mat-button (click)="nextMonth()">下一月 》</button>
+        </div>
 
-          <!-- ID -->
-          <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef>ID</th>
-            <td mat-cell *matCellDef="let element">{{element.id}}</td>
-          </ng-container>
-
-          <!-- 名字 -->
-          <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef>名字</th>
-            <td mat-cell *matCellDef="let element">{{element.name}}</td>
-          </ng-container>
-
-          <!-- 日期 -->
-          <ng-container matColumnDef="date">
-            <th mat-header-cell *matHeaderCellDef>日期</th>
-            <td mat-cell *matCellDef="let element">{{element.date}}</td>
-          </ng-container>
-
-          <!-- 操作 -->
-          <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef>操作</th>
-            <td mat-cell *matCellDef="let element">
-              <button mat-button color="primary" (click)="viewInfo(element.id)">查看</button>
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="parkDisplayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: parkDisplayedColumns;"></tr>
-        </table>
+        <!-- 當月日期列表 -->
+        <div class="dates">
+          @for (d of daysInMonth; track d) {
+          <div class="date-item" (click)="viewAllInfo(d)">
+            {{ d }}
+          </div>
+          }
+        </div>
 
         <!-- 顯示個別資訊 -->
-        @if(selectedPark) {
         <div class="detail-section">
-          <p><strong>ID：</strong>{{selectedPark.id}}</p>
-          <p><strong>名字：</strong>{{selectedPark.name}}</p>
-          <p><strong>日期：</strong>{{selectedPark.date}}</p>
+          @if(selectedPark && selectedPark.length > 0) {
+          @for (item of selectedPark; track item.phone + item.date + item.time) {
+          <div class="park-item">
+            <p><strong>電話：</strong>{{ item.phone }}</p>
+            <p><strong>名字：</strong>{{ item.name }}</p>
+            <p><strong>日期：</strong>{{ item.date }}</p>
+          </div>
+
+          }
+          }
         </div>
-        }
       </div>
-
-
 
     </div>
   </div>
-</div>

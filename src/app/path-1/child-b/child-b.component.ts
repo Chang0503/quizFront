@@ -41,15 +41,21 @@ export class ChildBComponent implements OnInit, AfterViewInit {
     private dialog: MatDialog,
     private service:ServiceService
   ) {}
+  //停車場
+  currentYear = new Date().getFullYear();
+  currentMonth = new Date().getMonth(); // 0 = 一月
+  daysInMonth: string[] = [];
+  selectedPark: any = null;
+  currentTable = 'park';
 
 
   ngOnInit(): void {
 if (this.service.getReturnFlag()) {
     this.service.setReturnFlag(false); // ✅ 用完記得關掉 flag
     this.dialog.open(Dialog2Component);    // ✅ 打開 dialog 並載入資料
-    this.loadAllPark();
+    
   }
-
+    this.generateDays();
     this.loadQuizzes();
 
     // 自定 filter 邏輯（例如只搜尋 title 欄位）
@@ -145,7 +151,7 @@ if (this.service.getReturnFlag()) {
   navigateToWrite(id: number): void {
   this.router.navigate(['/write', id]);
 }
-currentTable: 'connect' | 'park' = 'connect';
+
 
 switchTable() {
   this.currentTable = this.currentTable === 'connect' ? 'park' : 'connect';
@@ -154,32 +160,51 @@ switchTable() {
 
 //停車場
 parkData: any[] = [];
-parkDisplayedColumns: string[] = ['id', 'name', 'date', 'actions'];
-selectedPark: any = null;
+parkDisplayedColumns: string[] = ['Phone', 'name', 'date', 'actions'];
 
-// ngOnInit() {
-//   this.loadAllPark();
-// }
 
-loadAllPark() {
-  this.apiService.getAllInfos().subscribe({
-    next: (res: any) => {
-      if(res.code === 200) {
-        this.parkData = res.list || []; // 假設 API 回傳 list
-      } else {
-        alert(res.message || '讀取停車場資料失敗');
-      }
-    },
-    error: (err) => console.error(err)
-  });
+generateDays() {
+  const days: string[] = [];
+  const lastDay = new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
+
+  for (let i = 1; i <= lastDay; i++) {
+    const dayStr = `${this.currentYear}-${(this.currentMonth + 1)
+      .toString()
+      .padStart(2, '0')}-${i.toString().padStart(2, '0')}`;
+    days.push(dayStr);  // → 2025-09-01
+  }
+  this.daysInMonth = days;
 }
 
-// 查看單筆
-viewInfo(phone: string) {
-  this.apiService.getInfo(phone).subscribe({
+
+  // 切換月份
+  prevMonth() {
+    if (this.currentMonth === 0) {
+      this.currentYear--;
+      this.currentMonth = 11;
+    } else {
+      this.currentMonth--;
+    }
+    this.generateDays();
+  }
+
+  nextMonth() {
+    if (this.currentMonth === 11) {
+      this.currentYear++;
+      this.currentMonth = 0;
+    } else {
+      this.currentMonth++;
+    }
+    this.generateDays();
+  }
+
+
+viewAllInfo(date: string) {
+  console.log('查詢日期:', date);
+  this.apiService.getAllInfos(date).subscribe({
     next: (res: any) => {
       if (res.code === 200) {
-        this.selectedPark = res.data || res; // 後端可能直接回 data 或 res
+        this.selectedPark = res.getAllInfoVoList || [];
       } else {
         alert(res.message || '查無資料');
       }
@@ -189,6 +214,5 @@ viewInfo(phone: string) {
       alert('查詢失敗');
     }
   });
-
 }
 }
