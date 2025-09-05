@@ -9,13 +9,13 @@
     <h1 class="title">管理員管理系統</h1>
 
     <!-- 🔹 搜尋區塊 -->
-    <div class="search-container">
+    <!-- <div class="search-container">
       <h3 style="color: black;">標題：</h3>
       <input type="text" (input)="changeMonth($event)" [(ngModel)]="inputData">
       <button mat-raised-button color="primary"><mat-icon>search</mat-icon>搜尋</button>
-    </div>
+    </div> -->
 
-    <button mat-button (click)="switchTable()">切換表格</button>
+    <!-- <button mat-button (click)="switchTable()">切換表格</button> -->
     <div class="tables-wrapper">
 
       <div class="connect" [class.active]="currentTable == 'connect'">
@@ -92,7 +92,7 @@
       </div>
 
       <div class="park" [class.active]="currentTable === 'park'">
-        <h2>停車場日期</h2>
+        <h2>停車場</h2>
 
         <!-- 月份切換 -->
         <div class="month-nav">

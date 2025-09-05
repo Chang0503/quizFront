@@ -1,242 +1,207 @@
-/* 🌆 背景 */
+/* 🖤 整體背景：深色風格 */
 .out {
-  background-color: #d5cdcd;
-  background-size: cover;
-  background-position: center;
+  background-color: #1f1f2e;
   min-height: 93vh;
-  z-index: -1;
   padding: 20px;
   box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+  color: #e0e0e0;
 }
 
-/* 🔴 登出按鈕區塊 */
+/* 🔴 登出按鈕 */
 .logout-container {
   text-align: right;
-  padding: 10px;
+  margin-bottom: 10px;
 }
 
-.logout-container button{
+.logout-container button {
   font-size: 16px;
-  font-weight: bold;
-  background-color: #000 !important;
+  font-weight: 600;
+  background-color: #ff4d4f !important;
   color: white !important;
   border-radius: 6px;
   padding: 6px 14px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  transition: all 0.2s ease;
 }
-.login-container mat-icon {
-  font-size: 20px;
-  margin-right: 4px;
-  vertical-align: middle;
-  color: #e9e5e6;
+
+.logout-container button:hover {
+  background-color: #d9363e !important;
+  transform: translateY(-2px);
 }
 
 /* 🔹 標題 */
 .title {
   text-align: center;
-  color: rgb(9, 9, 9);
-  font-size: 28px;
-  font-weight: bold;
-  margin-bottom: 20px;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #ffffff;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
 }
 
-/* 🔍 搜尋欄 */
+/* 🔍 搜尋區 */
 .search-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 12px;
   margin-bottom: 20px;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: #2c2c3e;
   padding: 16px 20px;
   border-radius: 10px;
 }
 
-.search-container h3 {
-  font-size: 18px;
-  color: white;
-  margin: 0;
-}
-
 .search-container input {
   font-size: 16px;
-  padding: 6px 10px;
+  padding: 8px 12px;
   width: 260px;
-  border: 1px solid #aaa;
+  border: none;
   border-radius: 6px;
-  background-color: white;
-  color: #333;
+  outline: none;
+  background-color: #3a3a50;
+  color: #fff;
 }
 
 .search-container button {
-  font-size: 16px;
   font-weight: bold;
-  background-color: #000 !important;
-  color: white !important;
+  background-color: #4f73ff !important;
+  color: #fff !important;
   border-radius: 6px;
   padding: 6px 14px;
+  transition: all 0.2s ease;
 }
-.search-container mat-icon {
-  font-size: 20px;
-  margin-right: 4px;
-  vertical-align: middle;
-  color: #f7f7f7;
+
+.search-container button:hover {
+  background-color: #3355cc !important;
 }
+
+/* 🔘 切換表格按鈕 */
+button[mat-button] {
+  background-color: #ffb547 !important;
+  color: #1f1f2e !important;
+  border-radius: 6px;
+  padding: 6px 16px;
+  margin-bottom: 15px;
+  transition: all 0.2s ease;
+}
+
+button[mat-button]:hover {
+  background-color: #e09b3c !important;
+  transform: translateY(-2px);
+}
+
 
 /* 📋 表格區塊 */
 .table-container {
   position: relative;
   width: 80%;
-  margin: 0 auto;
-  background: rgba(255, 255, 255, 0.95);
+  margin: 0 auto 30px auto;
+  background: #2c2c3e;
   padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.2);
-  z-index: 100;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
 }
 
-/* 表頭 */
+/* 表格 */
 th {
-  background-color: #1e1e1e !important;
-  color: white;
+  background-color: #3a3a50 !important;
+  color: #ffffff;
   font-weight: 600;
   text-align: center;
   padding: 12px;
 }
 
-/* 奇偶行 */
-tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-tr:nth-child(odd) {
-  background-color: #eaeaea;
-}
-
-/* 表格內容 */
 td {
   text-align: center;
   padding: 12px;
-  color: #333;
+  color: #dcdcdc;
 }
 
-/* 🔘 操作欄置中 */
-.center-actions {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
+tr:nth-child(even) {
+  background-color: #2f2f44;
 }
+tr:nth-child(odd) {
+  background-color: #252538;
+}
+
+/* 🟢 操作按鈕 */
+.center-actions button {
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+/* 分頁 */
 mat-paginator {
-  background-color: #a7a1a1 !important;
+  background-color: #2c2c3e !important;
   border-radius: 6px;
   margin-top: 16px;
+  color: #fff;
+}
+/* 分頁範圍文字 */
+// .mat-mdc-paginator .mat-mdc-icon-button mat-icon {
+//   color: #f7f6f6 !important; /* 亮色箭頭 */
+// }
+.mat-mdc-icon-button{
+  color: #f7f6f6 !important; /* 亮色箭頭 */
 }
 
-/* row hover */
-.mat-mdc-row:hover .mat-mdc-cell {
-  border-color: currentColor;
-}
-/* 🔘 全站按鈕動畫效果 */
-button {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-/* 滑過放大、加陰影 */
-button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-/* 按下時稍微縮小 */
-button:active {
-  transform: scale(0.97);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-.tables-wrapper {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  height: 600px; /* 根據表格高度調整 */
-}
-
-.connect, .park {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  transition: transform 0.5s ease-in-out;
-}
-
-/* 初始狀態：connect 顯示，park 在右邊 */
-.connect {
-  transform: translateX(0);
-}
-.park {
-  transform: translateX(100%);
-}
-
-/* active 狀態切換 */
-.connect.active {
-  transform: translateX(0);
-}
-.connect:not(.active) {
-  transform: translateX(-100%);
-}
-
-.park.active {
-  transform: translateX(0);
-}
-.park:not(.active) {
-  transform: translateX(100%);
-}
-
+/* 月份列表 */
 .month-nav {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 15px;
-
-  .month-title {
-    font-size: 20px;
-    font-weight: bold;
-    margin: 0 20px;
-  }
 }
 
+.month-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0 20px;
+  color: #ffffff;
+}
+
+/* 日期格子 */
 .dates {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 10px;
-
-  .date-item {
-    padding: 10px;
-    background: #f1f1f1;
-    border-radius: 8px;
-    text-align: center;
-    cursor: pointer;
-    transition: 0.3s;
-
-    &:hover {
-      background: #1976d2;
-      color: #fff;
-    }
-  }
+  margin-bottom: 15px;
 }
 
+.date-item {
+  padding: 10px;
+  background: #3a3a50;
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  font-weight: 600;
+  color: #fff;
+  transition: 0.2s;
+}
+
+.date-item:hover {
+  background: #4f4fa6;
+}
+
+/* 個別資訊區 */
 .detail-section {
-    max-height: 200px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-
+  max-height: 300px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid #4f4fa6;
+  border-radius: 10px;
+  background-color: #2c2c3e;
 }
 
-/* 個別資訊卡片 */
 .park-item {
-  border: 1px solid #ccc;
-  padding: 8px;
-  border-radius: 6px;
-  background-color: #f9f9f9;
+  border: 1px solid #4f4fa6;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #3a3a50;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  color: #e0e0e0;
 }

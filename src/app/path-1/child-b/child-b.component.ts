@@ -59,9 +59,9 @@ if (this.service.getReturnFlag()) {
     this.loadQuizzes();
 
     // 自定 filter 邏輯（例如只搜尋 title 欄位）
-    this.dataSource.filterPredicate = (data, filter: string) => {
-      return data.title?.toLowerCase().includes(filter);
-    };
+    // this.dataSource.filterPredicate = (data, filter: string) => {
+    //   return data.title?.toLowerCase().includes(filter);
+    // };
   }
 
   ngAfterViewInit(): void {
@@ -153,9 +153,9 @@ if (this.service.getReturnFlag()) {
 }
 
 
-switchTable() {
-  this.currentTable = this.currentTable === 'connect' ? 'park' : 'connect';
-}
+// switchTable() {
+//   this.currentTable = this.currentTable === 'connect' ? 'park' : 'connect';
+// }
 
 
 //停車場

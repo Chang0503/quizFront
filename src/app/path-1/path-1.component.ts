@@ -96,12 +96,7 @@ export class Path1Component implements OnInit, AfterViewInit {
     }));
   }
 
-  // 管理員登入按鈕
-  enter(): void {
-    this.dialog.open(DialogComponent, {
-      data: { message: '請輸入帳號密碼' },
-    });
-  }
+  
   navigateToAnswer(id: number): void {
   this.router.navigate(['/childa', id]);
 }
