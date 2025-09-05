@@ -184,24 +184,26 @@ mat-paginator {
   background: #4f4fa6;
 }
 
-/* 個別資訊區 */
 .detail-section {
-  max-height: 300px;
-  overflow-y: auto;
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  flex-wrap: wrap;          /* 允許換行 */
+  gap: 16px;                /* 項目之間的間距 */
   padding: 12px;
   border: 1px solid #4f4fa6;
   border-radius: 10px;
   background-color: #2c2c3e;
+  max-height: none;         /* 如果想要自動延伸，不限制高度 */
 }
 
 .park-item {
+  
+  flex: 0 0 24%;            /* 固定寬度 25%，最多 4 個一行 */
+  max-width: 24%;
   border: 1px solid #4f4fa6;
   padding: 10px;
   border-radius: 8px;
   background-color: #3a3a50;
   box-shadow: 0 2px 6px rgba(0,0,0,0.3);
   color: #e0e0e0;
+  box-sizing: border-box;
 }

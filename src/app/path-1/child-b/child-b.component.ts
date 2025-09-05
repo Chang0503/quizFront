@@ -13,6 +13,15 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { ServiceService } from '../../@services/service';
 import { ConfirmDialogComponentComponent } from './confirm-dialog-component/confirm-dialog-component.component';
+interface Park {
+  phone: string;
+  name: string;
+  date: string;
+  carNumber?: string;
+  time?: string;
+  remark?: string;
+  detailVisible?: boolean; // 控制顯示額外資訊
+}
 
 @Component({
   selector: 'app-child-b',
@@ -27,9 +36,11 @@ import { ConfirmDialogComponentComponent } from './confirm-dialog-component/conf
 
 
   ],
+  
   templateUrl: './child-b.component.html',
   styleUrls: ['./child-b.component.scss']
 })
+
 export class ChildBComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['actions', 'title', 'direction', 'startDate', 'endDate', 'published'];
   dataSource = new MatTableDataSource<any>([]);
@@ -41,11 +52,12 @@ export class ChildBComponent implements OnInit, AfterViewInit {
     private dialog: MatDialog,
     private service:ServiceService
   ) {}
+  
   //停車場
   currentYear = new Date().getFullYear();
   currentMonth = new Date().getMonth(); // 0 = 一月
   daysInMonth: string[] = [];
-  selectedPark: any = null;
+  selectedPark: Park[] = [];
   currentTable = 'park';
 
 
@@ -215,4 +227,41 @@ viewAllInfo(date: string) {
     }
   });
 }
+getInfo(phone: string) {
+  const normalizedPhone = phone.trim(); // 去掉前後空格
+  console.log('request phone:', normalizedPhone);
+  
+  this.apiService.getInfo(normalizedPhone).subscribe({
+    next: (res: any) => {console.log('前端收到資料:', res); // ✅ 先印出來看看
+      if (res.code === 200) {
+        
+        // 用 includes 或 trim 比對，避免空格問題
+        const parkItem = this.selectedPark.find(p => p.phone.trim() === normalizedPhone);
+        if (parkItem) {
+          parkItem.carNumber = res.carNumber;
+          parkItem.time = res.time;
+          parkItem.remark = res.remark;
+          parkItem.detailVisible = true; // 控制顯示額外資訊
+        }
+      } else {
+        alert(res.message || '查無資料');
+      }
+    },
+    error: (err) => {
+      console.error(err);
+      alert('取得系統資訊失敗');
+    }
+  });
 }
+viewDetail(item: any) {
+  // 如果已有資料，就切換顯示/隱藏
+  if (item.carNumber || item.time || item.remark) {
+    item.detailVisible = !item.detailVisible;
+  } else {
+    // 沒資料就呼叫 API
+    this.getInfo(item.phone);
+  }
+}
+
+}
+

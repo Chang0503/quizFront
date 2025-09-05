@@ -100,4 +100,5 @@ export class Path1Component implements OnInit, AfterViewInit {
   navigateToAnswer(id: number): void {
   this.router.navigate(['/childa', id]);
 }
+
 }
