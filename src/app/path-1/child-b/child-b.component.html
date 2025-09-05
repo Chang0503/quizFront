@@ -125,10 +125,15 @@
 
             <!-- 顯示額外資訊 -->
             @if(item.detailVisible){
+            <button mat-icon-button class="delete-btn" (click)="deleteItem(item)">
+              <mat-icon>delete</mat-icon>
+            </button>
             <p><strong>車牌號碼：</strong>{{ item.carNumber }}</p>
             <p><strong>時間：</strong>{{ item.time }}</p>
             <p><strong>備註：</strong>{{ item.remark }}</p>
+
             }
+
           </div>
           }
           }

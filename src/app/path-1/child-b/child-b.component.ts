@@ -262,6 +262,23 @@ viewDetail(item: any) {
     this.getInfo(item.phone);
   }
 }
-
+deleteItem(item: any) {
+  const phone = item.phone.trim(); // 避免空格問題
+  this.apiService.delete(phone).subscribe({
+    next: (res: any) => {
+      if (res.code === 200) {
+        // 從前端陣列移除
+        this.selectedPark = this.selectedPark.filter(p => p.phone.trim() !== phone);
+        console.log('刪除成功:', phone);
+      } else {
+        alert(res.message || '刪除失敗');
+      }
+    },
+    error: (err) => {
+      console.error('刪除失敗', err);
+      alert('系統錯誤，刪除失敗');
+    }
+  });
+}
 }
 

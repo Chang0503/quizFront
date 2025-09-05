@@ -185,6 +185,7 @@ mat-paginator {
 }
 
 .detail-section {
+  
   display: flex;
   flex-wrap: wrap;          /* 允許換行 */
   gap: 16px;                /* 項目之間的間距 */
@@ -196,7 +197,7 @@ mat-paginator {
 }
 
 .park-item {
-  
+  position: relative; 
   flex: 0 0 24%;            /* 固定寬度 25%，最多 4 個一行 */
   max-width: 24%;
   border: 1px solid #4f4fa6;
@@ -206,4 +207,22 @@ mat-paginator {
   box-shadow: 0 2px 6px rgba(0,0,0,0.3);
   color: #e0e0e0;
   box-sizing: border-box;
+}
+.park-item .delete-btn {
+  position: absolute;       /* 固定在右下角 */
+  bottom: 10px;
+  right: 10px;
+  background-color: #ff4d4f;  /* 紅色 */
+  color: white;
+  border-radius: 10px;       /* 圓形按鈕 */
+  width: 36px;              /* 按鈕大小 */
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
+}
+.park-item .delete-btn:hover {
+  background-color: #d9363e;  /* 懸停深紅 */
+  transform: scale(1.1);       /* 放大一點點 */
 }
