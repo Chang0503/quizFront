@@ -17,16 +17,74 @@
     <h2>查詢結果</h2>
     <mat-card>
       <mat-card-content>
-        <p><strong>車牌：</strong>{{ reservationData.carNumber }}</p>
-        <p><strong>電話：</strong>{{ reservationData.phone }}</p>
-        <p><strong>日期：</strong>{{ reservationData.date }}</p>
-        <p><strong>時間：</strong>{{ reservationData.time }}</p>
-        <p><strong>姓名：</strong>{{ reservationData.name }}</p>
-        <p><strong>備註：</strong>{{ reservationData.remark }}</p>
+        @if(editMode){
+        <div [formGroup]="form">
+          <p><strong>車牌：</strong>
+            <input matInput formControlName="carNumber">
+          </p>
+
+          <p><strong>電話：</strong> {{ reservationData.phone }}</p>
+
+          <p><strong>日期：</strong>
+
+            <input matInput [matDatepicker]="picker" formControlName="date" [min]="minDate" readonly>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            @if (form.get('date')?.hasError('required') && form.get('date')?.touched) {
+            <mat-error>日期不能為空</mat-error>
+            }
+          </p>
+
+          <p><strong>時間：</strong>
+
+            <input matInput formControlName="time" placeholder="HH:mm" (input)="formatTime($event)" maxlength="5">
+
+            @if (form.get('time')?.hasError('required') && form.get('time')?.touched) {
+            <mat-error>時間不能為空</mat-error>
+            }
+            @else if (form.get('time')?.hasError('invalidFormat') && form.get('time')?.touched) {
+            <mat-error>格式錯誤，請輸入 HH:mm</mat-error>
+            }
+            @else if (form.get('time')?.hasError('outOfRange') && form.get('time')?.touched) {
+            <mat-error>時間必須在 08:00 ~ 16:30 之間</mat-error>
+            }
+
+          </p>
+
+          <p><strong>姓名：</strong>
+
+            <input matInput formControlName="name" placeholder="莓李茂">
+
+          </p>
+
+          <p><strong>備註：</strong>
+
+            <textarea matInput formControlName="remark"></textarea>
+
+          </p>
+        </div>
+        }@else {
+        <p><strong>車牌：</strong> {{ reservationData.carNumber }}</p>
+        <p><strong>日期：</strong> {{ reservationData.date | date:'yyyy-MM-dd' }}</p>
+        <p><strong>時間：</strong> {{ reservationData.time }}</p>
+        <p><strong>姓名：</strong> {{ reservationData.name }}</p>
+        <p><strong>備註：</strong> {{ reservationData.remark }}</p>
+        }
       </mat-card-content>
+
+      <div class="action-btn">
+        @if(editMode){
+        <button mat-button color="primary" (click)="saveUpdate()" style="margin-right: 5px;">儲存</button>
+        <button mat-button (click)="editMode=false">取消變更</button>
+        } @else {
+        <button mat-button (click)="enableEdit()" style="margin-right: 5px;">編輯</button>
+        <button mat-button color="warn" (click)="del()">取消預約</button>
+        }
+      </div>
     </mat-card>
     }
   </div>
+
 
 </mat-dialog-content>
 

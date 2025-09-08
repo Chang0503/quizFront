@@ -1,8 +1,8 @@
 <div class="reservation-header">
   <h2>填寫預約資料</h2>
-  <h4>地址:高雄市前鎮區XX路一號</h4>
+  <h4>地址:屏東新東港鎮</h4>
   <button (click)="find()">
-    <span class="text">預約查詢</span>
+    <span class="text">預約查詢、編輯、取消</span>
     <div class="waving-hand">
       <mat-icon style="margin-top: 6.5px;">arrow_back</mat-icon>
     </div>
@@ -10,43 +10,67 @@
 </div>
 
 <mat-card class="reservation-form">
-  <mat-card-content>
+  <mat-card-content [formGroup]="form">
     <!-- 日期區間 -->
     <mat-form-field appearance="fill">
       <mat-label>日期</mat-label>
-      <input matInput [matDatepicker]="picker" [(ngModel)]="form.date">
+      <input matInput [matDatepicker]="picker" formControlName="date" [min]="minDate" readonly>
       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
+      @if (form.get('date')?.hasError('required') && form.get('date')?.touched) {
+      <mat-error>日期不能為空</mat-error>
+      }
     </mat-form-field>
 
     <!-- 時間選擇 -->
     <mat-form-field appearance="fill">
       <mat-label>抵達時間</mat-label>
-      <input matInput [(ngModel)]="form.time" placeholder="HH:mm">
+      <input matInput formControlName="time" placeholder="HH:mm" (input)="formatTime($event)" maxlength="5">
+
+      @if (form.get('time')?.hasError('required') && form.get('time')?.touched) {
+      <mat-error>時間不能為空</mat-error>
+      }
+      @else if (form.get('time')?.hasError('invalidFormat') && form.get('time')?.touched) {
+      <mat-error>格式錯誤，請輸入 HH:mm</mat-error>
+      }
+      @else if (form.get('time')?.hasError('outOfRange') && form.get('time')?.touched) {
+      <mat-error>時間必須在 08:00 ~ 16:30 之間</mat-error>
+      }
     </mat-form-field>
 
     <!-- 姓名 -->
     <mat-form-field appearance="fill">
       <mat-label>姓名</mat-label>
-      <input matInput [(ngModel)]="form.name" placeholder="莓李茂">
+      <input matInput formControlName="name" placeholder="莓李茂">
     </mat-form-field>
 
     <!-- 電話 -->
     <mat-form-field appearance="fill">
       <mat-label>電話</mat-label>
-      <input matInput [(ngModel)]="form.phone" placeholder="0912345678">
+      <input matInput formControlName="phone" placeholder="0912345678">
+      @if (form.get('phone')?.hasError('required') && form.get('phone')?.touched) {
+      <mat-error>電話不能為空</mat-error>
+      }
+      @if (form.get('phone')?.hasError('pattern') && form.get('phone')?.touched) {
+      <mat-error>電話格式錯誤，必須09開頭共10碼</mat-error>
+      }
     </mat-form-field>
 
-    <!-- 車牌 -->
     <mat-form-field appearance="fill">
       <mat-label>車牌</mat-label>
-      <input matInput [(ngModel)]="form.carNumber" placeholder="ABC-1234">
+      <input matInput formControlName="carNumber" placeholder="ABC-1234">
+      @if (form.get('carNumber')?.hasError('required') && form.get('carNumber')?.touched) {
+      <mat-error>車牌不能為空</mat-error>
+      }
+      @if (form.get('carNumber')?.hasError('pattern') && form.get('carNumber')?.touched) {
+      <mat-error>車牌格式錯誤，例：AB-123 或 ABC-1234</mat-error>
+      }
     </mat-form-field>
 
     <!-- 備註 -->
     <mat-form-field appearance="fill">
       <mat-label>備註</mat-label>
-      <textarea matInput [(ngModel)]="form.remark" placeholder="沒有的話填無"></textarea>
+      <textarea matInput formControlName="remark" placeholder="沒有的話填無"></textarea>
     </mat-form-field>
   </mat-card-content>
 
