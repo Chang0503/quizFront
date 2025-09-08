@@ -3,7 +3,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { Dialog2Component } from '../../dialog-2/dialog-2.component';
 import { ApiService } from '../../@services/api.service';
 import { FormsModule } from '@angular/forms';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -11,7 +10,6 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
-import { ServiceService } from '../../@services/service';
 import { ConfirmDialogComponentComponent } from './confirm-dialog-component/confirm-dialog-component.component';
 interface Park {
   phone: string;
@@ -50,7 +48,7 @@ export class ChildBComponent implements OnInit, AfterViewInit {
     private router: Router,
     private apiService: ApiService,
     private dialog: MatDialog,
-    private service:ServiceService
+
   ) {}
   
   //停車場
@@ -62,18 +60,9 @@ export class ChildBComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit(): void {
-if (this.service.getReturnFlag()) {
-    this.service.setReturnFlag(false); // ✅ 用完記得關掉 flag
-    this.dialog.open(Dialog2Component);    // ✅ 打開 dialog 並載入資料
-    
-  }
+
     this.generateDays();
     this.loadQuizzes();
-
-    // 自定 filter 邏輯（例如只搜尋 title 欄位）
-    // this.dataSource.filterPredicate = (data, filter: string) => {
-    //   return data.title?.toLowerCase().includes(filter);
-    // };
   }
 
   ngAfterViewInit(): void {
@@ -93,28 +82,14 @@ if (this.service.getReturnFlag()) {
     });
   }
 
-  add(): void {
-    const dialogRef = this.dialog.open(Dialog2Component);
-     dialogRef.afterClosed().subscribe(result => {
-    if (result) {
-      // result 是剛剛新增成功回傳的 quiz 資料，直接刷新列表即可
-      this.loadQuizzes();
-    }
-  });
+add(): void {
+  this.router.navigate(['/carCreate']);
 }
 
-  editElement(quiz: any): void {
-   const dialogRef = this.dialog.open(Dialog2Component, {
-    data: { id: quiz.id }  // 傳入要編輯的問卷 ID
-  });
-    dialogRef.afterClosed().subscribe(result => {
-    if (result) {
-      const payload = this.transformFormToPayload(result,  quiz.id);
-      this.apiService.updateQuiz(payload).subscribe({
-        next: () => this.loadQuizzes(),
-        error: err => console.error('更新失敗', err)
-      });
-    }
+// 編輯
+editElement(quiz: any): void {
+  this.router.navigate(['/carCreate'], {
+    queryParams: { id: quiz.id }
   });
 }
 
@@ -136,26 +111,7 @@ if (this.service.getReturnFlag()) {
     this.dataSource.filter = keyword;
   }
 
-  transformFormToPayload(formData: any, quizId: number): any {
-    return {
-      quizId,
-      title: formData.title,
-      direction: formData.direction,
-      startDate: formData.startDate,
-      endDate: formData.endDate,
-      published: formData.published,
-      questionVos: (formData.questionVos || []).map((q: any) => ({
-        questionId: q.questionId || 0,
-        quizId,
-        question: q.question,
-        type: q.type,
-        required: q.required,
-        options: typeof q.optionsText === 'string'
-          ? q.optionsText.split(',').map((o: string) => o.trim())
-          : q.options
-      }))
-    };
-  }
+
 
   back(): void {
     this.router.navigate(['/home']);

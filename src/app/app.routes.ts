@@ -12,6 +12,7 @@ import{ParkingComponent}from './parking/parking.component';
 import{HotelComponent}from './hotel/hotel.component';
 import { ApitestComponent } from './apitest/apitest.component';
 import { WritePathComponent } from './write-path/write-path.component';
+import { CarCreateComponent } from './car-create/car-create.component';
 
 export const routes: Routes = [
   { path: 'path1', component: Path1Component },
@@ -26,6 +27,7 @@ export const routes: Routes = [
   {path:'hotel',component:HotelComponent},
   {path:'test',component:ApitestComponent},
   {path:'write/:id',component:WritePathComponent},
+  {path:'carCreate', component:CarCreateComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 
 

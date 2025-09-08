@@ -1,0 +1,80 @@
+.quiz-container {
+  background: #f9f9f9;
+  color: #333;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+  h2 {
+    color: #1976d2; // 藍色主色
+  }
+}
+
+.step-nav {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+
+  button.active {
+    background-color: #1976d2;
+    color: white;
+  }
+}
+
+.form-body {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.half-width {
+  width: 48%;
+  margin-right: 2%;
+}
+
+.date-row {
+  display: flex;
+  gap: 10px;
+}
+
+.footer-actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 15px;
+  justify-content: flex-end;
+}
+
+.preview-card {
+  margin-top: 30px;
+  padding: 20px;
+  background: #fafafa;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+  h3 {
+    margin-bottom: 10px;
+    color: #ff9800; // 橙色
+  }
+
+  .required {
+    color: #d32f2f; // 紅色
+    font-weight: bold;
+  }
+
+  .options {
+    font-size: 0.9em;
+    color: #666;
+  }
+}
