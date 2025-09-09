@@ -4,28 +4,28 @@ import { Path1Component } from './path-1/path-1.component';
 import { ChildAComponent } from './path-1/child-a/child-a.component';
 import { ChildA1Component } from './path-1/child-a/child-a-1/child-a-1.component';
 import { ChildBComponent } from './path-1/child-b/child-b.component';
-import { Child3Component } from './path-1/child-c/child-3.component';
 import { FoodComponent } from './food/food.component';
 import { HomeComponent } from './home/home.component';
 import { ParkingComponent } from './parking/parking.component';
 import { HotelComponent } from './hotel/hotel.component';
-import { ApitestComponent } from './apitest/apitest.component';
 import { WritePathComponent } from './write-path/write-path.component';
 import { CarCreateComponent } from './car-create/car-create.component';
 
+//守衛
+import { login } from './Guard/login';
+import { Fillin } from './Guard/Fillin';
+
 export const routes: Routes = [
   { path: 'path1', component: Path1Component },
-  { path: 'childa/:id', component: ChildAComponent },
-  { path: 'childa_1', component: ChildA1Component },
-  { path: 'childb', component: ChildBComponent },
-  { path: 'childc', component: Child3Component },
+  { path: 'childa/:id', component: ChildAComponent, canActivate: [Fillin] },
+  { path: 'childa_1', component: ChildA1Component, canActivate: [Fillin] },
+  { path: 'childb', component: ChildBComponent, canActivate: [login] },
   { path: 'food', component: FoodComponent },
   { path: 'home', component: HomeComponent },
   { path: 'parking', component: ParkingComponent },
   { path: 'hotel', component: HotelComponent },
-  { path: 'test', component: ApitestComponent },
-  { path: 'write/:id', component: WritePathComponent },
-  { path: 'carCreate', component: CarCreateComponent },
+  { path: 'write/:id', component: WritePathComponent, canActivate: [Fillin] },
+  { path: 'carCreate', component: CarCreateComponent, canActivate: [login] },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 
 

@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule,MatIconModule, RouterModule],
+  imports: [CommonModule, MatIconModule, RouterModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -28,10 +28,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     { src: '/hot5.jpg', label: '望海亭' },
   ];
 
-  tellImages =[
-    {src:'/tell1.jpg',description1:'船票來回400 民宿訂票380',description2:'民宿平日半價以上',description3:'碼頭有專門在賣價差的阿姨會相較便宜'},
-    {src:'/tell2.jpg',description1:'8人以上9折',description2:'到府接送 來電123456',description3:'高鐵站有直達公車',description4:'自行開車前往有配合停車場'},
-    {src:'/tell3.jpg',description1:'下船後右手邊有市場',description2:'(瑞字號)旗魚黑輪必吃',description3:'XX生魚片必吃'},
+  tellImages = [
+    { src: '/tell1.jpg', description1: '船票來回400 民宿訂票380', description2: '民宿平日半價以上', description3: '碼頭有專門在賣價差的阿姨會相較便宜' },
+    { src: '/tell2.jpg', description1: '8人以上9折', description2: '到府接送 來電123456', description3: '高鐵站有直達公車', description4: '自行開車前往有配合停車場' },
+    { src: '/tell3.jpg', description1: '下船後右手邊有市場', description2: '(瑞字號)旗魚黑輪必吃', description3: 'XX生魚片必吃' },
   ];
 
   currentIndex = 0;
@@ -40,6 +40,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.startAutoSlide();
+    localStorage.removeItem('adminLoggedIn');
+    sessionStorage.removeItem('canFillQuiz');
   }
 
   ngOnDestroy(): void {

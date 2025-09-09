@@ -14,7 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogParkingFindComponent } from '../dialog-parking-find/dialog-parking-find.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AbstractControl, ValidationErrors } from '@angular/forms';
-import {  MatNativeDateModule} from '@angular/material/core';
+import { MatNativeDateModule } from '@angular/material/core';
 @Component({
   selector: 'app-parking',
   providers: [provideNativeDateAdapter()],
@@ -36,22 +36,24 @@ import {  MatNativeDateModule} from '@angular/material/core';
   styleUrls: ['./parking.component.scss']
 })
 
-export class ParkingComponent implements OnInit{
-   minDate!: Date;
-   form!: FormGroup;
+export class ParkingComponent implements OnInit {
+  minDate!: Date;
+  form!: FormGroup;
   allReservations: any[] = []; // 存放全部預約資料  
 
-  constructor(private parkService: ApiService, private dialog: MatDialog,private fb: FormBuilder) {}
+  constructor(private parkService: ApiService, private dialog: MatDialog, private fb: FormBuilder) { }
 
-  
+
 
   ngOnInit(): void {
+    sessionStorage.removeItem('canFillQuiz');
+    localStorage.removeItem('adminLoggedIn');
     this.minDate = new Date();
     this.form = this.fb.group({
       phone: ['', [Validators.required, Validators.pattern(/^09\d{8}$/)]],
       name: ['', Validators.required],
       date: ['', Validators.required],
-     time: ['', [Validators.required, this.workingHoursValidator.bind(this)]],
+      time: ['', [Validators.required, this.workingHoursValidator.bind(this)]],
       carNumber: ['', [Validators.required, Validators.pattern(/^[A-Z]{2,3}-\d{3,4}$/)]],
       remark: ['']
     });
@@ -80,18 +82,18 @@ export class ParkingComponent implements OnInit{
 
   // 格式化時間輸入為 HH:mm
   formatTime(event: any) {
-  let value: string = event.target.value;
-  // 移除所有非數字
-  value = value.replace(/\D/g, '');
-  if (value.length >= 3) {
-    // 自動加冒號，例如 1230 -> 12:30
-    value = value.slice(0, 2) + ':' + value.slice(2, 4);
+    let value: string = event.target.value;
+    // 移除所有非數字
+    value = value.replace(/\D/g, '');
+    if (value.length >= 3) {
+      // 自動加冒號，例如 1230 -> 12:30
+      value = value.slice(0, 2) + ':' + value.slice(2, 4);
+    }
+    // 限制長度 5 字元 (HH:mm)
+    if (value.length > 5) value = value.slice(0, 5);
+    event.target.value = value;
+    this.form.get('time')?.setValue(value, { emitEvent: false });
   }
-  // 限制長度 5 字元 (HH:mm)
-  if (value.length > 5) value = value.slice(0, 5);
-  event.target.value = value;
-  this.form.get('time')?.setValue(value, { emitEvent: false });
-}
 
 
   // 新增預約
@@ -103,8 +105,8 @@ export class ParkingComponent implements OnInit{
 
     let payload = { ...this.form.value };
 
- // 轉成 yyyy-MM-dd 字串，避免時區問題
-  if (payload.date instanceof Date) {
+    // 轉成 yyyy-MM-dd 字串，避免時區問題
+    if (payload.date instanceof Date) {
       const d = payload.date;
       const yyyy = d.getFullYear();
       const mm = String(d.getMonth() + 1).padStart(2, '0');
@@ -114,10 +116,10 @@ export class ParkingComponent implements OnInit{
 
     this.parkService.create(this.form.value).subscribe({
       next: (res) => {
-        if(res.code === 200) {
+        if (res.code === 200) {
           alert('預約成功');
           this.resetForm();
-          
+
         } else {
           alert(res.message);
         }
@@ -131,16 +133,16 @@ export class ParkingComponent implements OnInit{
 
   // 查詢單筆預約
   find() {
-  const dialogRef = this.dialog.open(DialogParkingFindComponent, {
-    width: '400px',
-    
-  });
+    const dialogRef = this.dialog.open(DialogParkingFindComponent, {
+      width: '400px',
 
-  // afterClosed 可以不用傳 phone 了，如果只是打開查詢對話框
-  dialogRef.afterClosed().subscribe(() => {
-    // 可選：這裡做額外動作，例如重新載入列表
-  });
-}
+    });
+
+    // afterClosed 可以不用傳 phone 了，如果只是打開查詢對話框
+    dialogRef.afterClosed().subscribe(() => {
+      // 可選：這裡做額外動作，例如重新載入列表
+    });
+  }
 
   // // 更新預約
   // updateReservation() {
@@ -154,7 +156,7 @@ export class ParkingComponent implements OnInit{
   //       if(res.code === 200) {
   //         alert('更新成功');
   //         this.resetForm();
-          
+
   //       } else {
   //         alert(res.message);
   //       }
@@ -178,7 +180,7 @@ export class ParkingComponent implements OnInit{
   //       if (res.code === 200) {
   //         alert('刪除成功');
   //         this.resetForm();
-          
+
   //       } else {
   //         alert(res.message);
   //       }
@@ -187,16 +189,16 @@ export class ParkingComponent implements OnInit{
   //   });
   // }
 
- 
+
   // 重置表單
   resetForm() {
-  this.form.reset({
-    date: null,
-    time: '',
-    name: '',
-    phone: '',
-    carNumber: '',
-    remark: ''
-  });
-}
+    this.form.reset({
+      date: null,
+      time: '',
+      name: '',
+      phone: '',
+      carNumber: '',
+      remark: ''
+    });
+  }
 }

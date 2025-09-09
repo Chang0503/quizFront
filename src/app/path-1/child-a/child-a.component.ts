@@ -36,7 +36,7 @@ export class ChildAComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
+    localStorage.removeItem('adminLoggedIn');
     this.route.paramMap.subscribe(params => {
       const idParam = params.get('id');
       if (idParam) {
@@ -151,11 +151,13 @@ export class ChildAComponent implements OnInit {
     };
 
     this.service.saveAnswers(jsonData);  // 存到 service
+    sessionStorage.setItem('canFillQuiz', 'true'); // ✅ 設置權限
     this.router.navigate(['/childa_1']); // 導去預覽頁
   }
 
   back(): void {
     this.service.clearAnswers();
+    sessionStorage.removeItem('canFillQuiz');
     this.router.navigate(['/path1']);
   }
 }

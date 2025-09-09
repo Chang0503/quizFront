@@ -34,7 +34,7 @@ interface Park {
 
 
   ],
-  
+
   templateUrl: './child-b.component.html',
   styleUrls: ['./child-b.component.scss']
 })
@@ -49,8 +49,8 @@ export class ChildBComponent implements OnInit, AfterViewInit {
     private apiService: ApiService,
     private dialog: MatDialog,
 
-  ) {}
-  
+  ) { }
+
   //停車場
   currentYear = new Date().getFullYear();
   currentMonth = new Date().getMonth(); // 0 = 一月
@@ -82,67 +82,70 @@ export class ChildBComponent implements OnInit, AfterViewInit {
     });
   }
 
-add(): void {
-  this.router.navigate(['/carCreate']);
-}
+  add(): void {
+    this.router.navigate(['/carCreate']);
+  }
 
-// 編輯
-editElement(quiz: any): void {
-  this.router.navigate(['/carCreate'], {
-    queryParams: { id: quiz.id }
-  });
-}
+  // 編輯
+  editElement(quiz: any): void {
+    this.router.navigate(['/carCreate'], {
+      queryParams: { id: quiz.id }
+    });
+  }
 
   deleteElement(quiz: any): void {
-  const dialogRef = this.dialog.open(ConfirmDialogComponentComponent);
+    const dialogRef = this.dialog.open(ConfirmDialogComponentComponent);
 
-  dialogRef.afterClosed().subscribe(result => {
-    if (result === true) {
-      this.apiService.deleteQuiz({ idList: [quiz.id] }).subscribe({
-        next: () => this.loadQuizzes(),
-        error: err => console.error('刪除失敗', err)
-      });
-    }
-  });
-}
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.apiService.deleteQuiz({ idList: [quiz.id] }).subscribe({
+          next: () => this.loadQuizzes(),
+          error: err => console.error('刪除失敗', err)
+        });
+      }
+    });
+  }
 
   changeMonth(event: Event): void {
     const keyword = (event.target as HTMLInputElement).value.trim().toLowerCase();
     this.dataSource.filter = keyword;
   }
 
-
-
+  //登出
   back(): void {
+    localStorage.removeItem('adminLoggedIn');
+    localStorage.removeItem('adminLoggedIn');
     this.router.navigate(['/home']);
   }
+
   navigateToWrite(id: number): void {
-  this.router.navigate(['/write', id]);
-}
-
-
-// switchTable() {
-//   this.currentTable = this.currentTable === 'connect' ? 'park' : 'connect';
-// }
-
-
-//停車場
-parkData: any[] = [];
-parkDisplayedColumns: string[] = ['Phone', 'name', 'date', 'actions'];
-
-
-generateDays() {
-  const days: string[] = [];
-  const lastDay = new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
-
-  for (let i = 1; i <= lastDay; i++) {
-    const dayStr = `${this.currentYear}-${(this.currentMonth + 1)
-      .toString()
-      .padStart(2, '0')}-${i.toString().padStart(2, '0')}`;
-    days.push(dayStr);  // → 2025-09-01
+    sessionStorage.setItem('canFillQuiz', 'true'); // ✅ 設置權限
+    this.router.navigate(['/write', id]);
   }
-  this.daysInMonth = days;
-}
+
+
+  // switchTable() {
+  //   this.currentTable = this.currentTable === 'connect' ? 'park' : 'connect';
+  // }
+
+
+  //停車場
+  parkData: any[] = [];
+  parkDisplayedColumns: string[] = ['Phone', 'name', 'date', 'actions'];
+
+
+  generateDays() {
+    const days: string[] = [];
+    const lastDay = new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
+
+    for (let i = 1; i <= lastDay; i++) {
+      const dayStr = `${this.currentYear}-${(this.currentMonth + 1)
+        .toString()
+        .padStart(2, '0')}-${i.toString().padStart(2, '0')}`;
+      days.push(dayStr);  // → 2025-09-01
+    }
+    this.daysInMonth = days;
+  }
 
 
   // 切換月份
@@ -167,74 +170,75 @@ generateDays() {
   }
 
 
-viewAllInfo(date: string) {
-  console.log('查詢日期:', date);
-  this.apiService.getAllInfos(date).subscribe({
-    next: (res: any) => {
-      if (res.code === 200) {
-        this.selectedPark = res.getAllInfoVoList || [];
-      } else {
-        alert(res.message || '查無資料');
-      }
-    },
-    error: (err) => {
-      console.error(err);
-      alert('查詢失敗');
-    }
-  });
-}
-getInfo(phone: string) {
-  const normalizedPhone = phone.trim(); // 去掉前後空格
-  console.log('request phone:', normalizedPhone);
-  
-  this.apiService.getInfo(normalizedPhone).subscribe({
-    next: (res: any) => {console.log('前端收到資料:', res); // ✅ 先印出來看看
-      if (res.code === 200) {
-        
-        // 用 includes 或 trim 比對，避免空格問題
-        const parkItem = this.selectedPark.find(p => p.phone.trim() === normalizedPhone);
-        if (parkItem) {
-          parkItem.carNumber = res.carNumber;
-          parkItem.time = res.time;
-          parkItem.remark = res.remark;
-          parkItem.detailVisible = true; // 控制顯示額外資訊
+  viewAllInfo(date: string) {
+    console.log('查詢日期:', date);
+    this.apiService.getAllInfos(date).subscribe({
+      next: (res: any) => {
+        if (res.code === 200) {
+          this.selectedPark = res.getAllInfoVoList || [];
+        } else {
+          alert(res.message || '查無資料');
         }
-      } else {
-        alert(res.message || '查無資料');
+      },
+      error: (err) => {
+        console.error(err);
+        alert('查詢失敗');
       }
-    },
-    error: (err) => {
-      console.error(err);
-      alert('取得系統資訊失敗');
-    }
-  });
-}
-viewDetail(item: any) {
-  // 如果已有資料，就切換顯示/隱藏
-  if (item.carNumber || item.time || item.remark) {
-    item.detailVisible = !item.detailVisible;
-  } else {
-    // 沒資料就呼叫 API
-    this.getInfo(item.phone);
+    });
   }
-}
-deleteItem(item: any) {
-  const phone = item.phone.trim(); // 避免空格問題
-  this.apiService.delete(phone).subscribe({
-    next: (res: any) => {
-      if (res.code === 200) {
-        // 從前端陣列移除
-        this.selectedPark = this.selectedPark.filter(p => p.phone.trim() !== phone);
-        console.log('刪除成功:', phone);
-      } else {
-        alert(res.message || '刪除失敗');
+  getInfo(phone: string) {
+    const normalizedPhone = phone.trim(); // 去掉前後空格
+    console.log('request phone:', normalizedPhone);
+
+    this.apiService.getInfo(normalizedPhone).subscribe({
+      next: (res: any) => {
+        console.log('前端收到資料:', res); // ✅ 先印出來看看
+        if (res.code === 200) {
+
+          // 用 includes 或 trim 比對，避免空格問題
+          const parkItem = this.selectedPark.find(p => p.phone.trim() === normalizedPhone);
+          if (parkItem) {
+            parkItem.carNumber = res.carNumber;
+            parkItem.time = res.time;
+            parkItem.remark = res.remark;
+            parkItem.detailVisible = true; // 控制顯示額外資訊
+          }
+        } else {
+          alert(res.message || '查無資料');
+        }
+      },
+      error: (err) => {
+        console.error(err);
+        alert('取得系統資訊失敗');
       }
-    },
-    error: (err) => {
-      console.error('刪除失敗', err);
-      alert('系統錯誤，刪除失敗');
+    });
+  }
+  viewDetail(item: any) {
+    // 如果已有資料，就切換顯示/隱藏
+    if (item.carNumber || item.time || item.remark) {
+      item.detailVisible = !item.detailVisible;
+    } else {
+      // 沒資料就呼叫 API
+      this.getInfo(item.phone);
     }
-  });
-}
+  }
+  deleteItem(item: any) {
+    const phone = item.phone.trim(); // 避免空格問題
+    this.apiService.delete(phone).subscribe({
+      next: (res: any) => {
+        if (res.code === 200) {
+          // 從前端陣列移除
+          this.selectedPark = this.selectedPark.filter(p => p.phone.trim() !== phone);
+          console.log('刪除成功:', phone);
+        } else {
+          alert(res.message || '刪除失敗');
+        }
+      },
+      error: (err) => {
+        console.error('刪除失敗', err);
+        alert('系統錯誤，刪除失敗');
+      }
+    });
+  }
 }
 

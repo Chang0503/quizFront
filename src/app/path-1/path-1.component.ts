@@ -3,10 +3,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-
 import { ApiService } from './../@services/api.service';
-import { DialogComponent } from '../dialog/dialog.component';
-
 import { RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
@@ -46,6 +43,8 @@ export class Path1Component implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.loadQuizzes();
+    sessionStorage.removeItem('canFillQuiz');
+    localStorage.removeItem('adminLoggedIn');
   }
 
   ngAfterViewInit(): void {
@@ -99,6 +98,7 @@ export class Path1Component implements OnInit, AfterViewInit {
 
 
   navigateToAnswer(id: number): void {
+    sessionStorage.setItem('canFillQuiz', 'true');
     this.router.navigate(['/childa', id]);
   }
 
