@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from './../@services/api.service';
 import { FeedbackVo } from './../@models/feedback.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-write-path',
@@ -18,7 +19,7 @@ export class WritePathComponent implements OnInit {
   // 用來記錄哪些填答者被展開
   expandedPhones = new Set<string>();
 
-  constructor(private apiService: ApiService, private route: ActivatedRoute) {}
+  constructor(private apiService: ApiService, private route: ActivatedRoute, private router: Router,) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -55,5 +56,8 @@ export class WritePathComponent implements OnInit {
     return this.expandedPhones.has(phone);
   }
 
+  back(): void {
+    this.router.navigate(['/childb']);
+  }
 }
 

@@ -130,6 +130,13 @@ export class ChildAComponent implements OnInit {
       return;
     }
 
+    // 檢查必填題目
+    const emptyRequired = this.array1.some(q => q.need && !q.answers);
+    if (emptyRequired) {
+      alert('有必填題目未填寫');
+      return;
+    }
+
     const jsonData = {
       quizId: this.quizId,
       array1: this.array1,

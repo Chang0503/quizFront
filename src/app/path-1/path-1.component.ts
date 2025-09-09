@@ -42,7 +42,7 @@ export class Path1Component implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private router: Router, private apiService: ApiService, private dialog: MatDialog, private service : ServiceService) {}
+  constructor(private router: Router, private apiService: ApiService, private dialog: MatDialog, private service: ServiceService) { }
 
   ngOnInit(): void {
     this.loadQuizzes();
@@ -53,36 +53,37 @@ export class Path1Component implements OnInit, AfterViewInit {
   }
 
   loadQuizzes(): void {
-  this.apiService.getAllQuizzes().subscribe({
-    next: (res: any) => {
-      const allQuizzes = res.quizList || [];
+    this.apiService.getAllQuizzes().subscribe({
+      next: (res: any) => {
+        const allQuizzes = res.quizList || [];
 
-      // const today = new Date();
-      // today.setHours(0, 0, 0, 0); // 清除時間，只比較日期
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // 清除時間，只比較日期
 
-      // // 過濾條件：published 為 true 且 endDate 大於等於今天
-      // const filteredQuizzes = allQuizzes.filter((q: any)=> {
-      //   const endDate = new Date(q.endDate || q.endTime);
-      //   endDate.setHours(0, 0, 0, 0);
-      //   return q.published === true && endDate >= today;
-      // });
+        // 過濾條件：published 為 true 且 endDate 大於等於今天
+        const filteredQuizzes = allQuizzes.filter((q: any) => {
+          const endDate = new Date(q.endDate || q.endTime);
+          endDate.setHours(0, 0, 0, 0);
+          return q.published === true && endDate >= today;
 
-      // this.questionnaires = filteredQuizzes;
-      // this.service.setQuizList(this.questionnaires);
-      // console.log('篩選後的問卷：', this.questionnaires);
-      this.questionnaires = allQuizzes;
+        });
 
-      this.dataSource.data = this.questionnaires.map(q => ({
-        id: q.id,
-        title: q.title,
-        direction: q.direction || q.remark || '',
-        startDate: q.startDate || q.startTime,
-        endDate: q.endDate || q.endTime,
-      }));
-    },
-    error: (err) => console.error('讀取問卷失敗', err),
-  });
-}
+        this.questionnaires = filteredQuizzes;
+        this.service.setQuizList(this.questionnaires);
+        console.log('篩選後的問卷：', this.questionnaires);
+        // this.questionnaires = allQuizzes;
+
+        this.dataSource.data = this.questionnaires.map(q => ({
+          id: q.id,
+          title: q.title,
+          direction: q.direction || q.remark || '',
+          startDate: q.startDate || q.startTime,
+          endDate: q.endDate || q.endTime,
+        }));
+      },
+      error: (err) => console.error('讀取問卷失敗', err),
+    });
+  }
 
 
   changeMonth(event: Event): void {
@@ -96,9 +97,9 @@ export class Path1Component implements OnInit, AfterViewInit {
     }));
   }
 
-  
+
   navigateToAnswer(id: number): void {
-  this.router.navigate(['/childa', id]);
-}
+    this.router.navigate(['/childa', id]);
+  }
 
 }
