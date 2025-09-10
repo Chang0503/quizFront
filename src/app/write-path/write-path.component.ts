@@ -32,8 +32,11 @@ export class WritePathComponent implements OnInit {
   }
 
   loadFeedback(): void {
+
     this.apiService.getFeedbackByQuizId(this.quizId).subscribe({
+
       next: (res) => {
+        console.log('API 回傳資料:', res); // 👈 看看 answerVoList 裡的題目欄位叫什麼
         this.title = res.title;
         this.direction = res.direction;
         this.feedbackVoList = res.feedbackVoList;
@@ -59,5 +62,6 @@ export class WritePathComponent implements OnInit {
   back(): void {
     this.router.navigate(['/childb']);
   }
+
 }
 

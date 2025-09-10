@@ -26,7 +26,7 @@ export class ChildAComponent implements OnInit {
   name: string = '';
   phone: string = '';
   email: string = '';
-  number: string = '';
+  age: number = 16;
 
   constructor(
     private route: ActivatedRoute,
@@ -50,7 +50,7 @@ export class ChildAComponent implements OnInit {
       this.name = savedData.name || '';
       this.phone = savedData.phone || '';
       this.email = savedData.email || '';
-      this.number = savedData.number || '';
+      this.age = savedData.number || '';
       this.array1 = savedData.array1 || [];
     }
   }
@@ -109,7 +109,7 @@ export class ChildAComponent implements OnInit {
           this.name = savedData.name || '';
           this.phone = savedData.phone || '';
           this.email = savedData.email || '';
-          this.number = savedData.number || '';
+          this.age = savedData.number || '';
         }
 
         // 指派到畫面要顯示的 array1
@@ -125,8 +125,19 @@ export class ChildAComponent implements OnInit {
 
 
   Preview(): void {
-    if (!this.name || !this.phone || !this.number) {
+    if (!this.name || !this.phone || !this.age) {
       alert('姓名,電話未填或人數未填');
+      return;
+    }
+    // ✅ 電話格式驗證 (台灣手機格式 09xxxxxxxx)
+    const phoneRegex = /^09\d{8}$/;
+    if (!phoneRegex.test(this.phone)) {
+      alert('電話號碼格式錯誤，請輸入正確的 09 開頭手機號碼');
+      return;
+    }
+
+    if (this.age < 16 || this.age > 70) {
+      alert('未滿16歲和高於70歲不能訂車');
       return;
     }
 
@@ -143,7 +154,7 @@ export class ChildAComponent implements OnInit {
       name: this.name,
       phone: this.phone,
       email: this.email,
-      number: this.number,
+      number: this.age,
       title: this.title,
       startDate: this.startDate,
       endDate: this.endDate,

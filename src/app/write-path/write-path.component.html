@@ -29,6 +29,7 @@
         <ul>
             @for (ans of feedback.answerVoList; track ans.quesId) {
             <li>
+                <strong>題目：</strong> {{ ans.question }}
                 <strong>答案：</strong> {{ ans.answerList ? ans.answerList.join(', ') : '' }}
             </li>
             }
