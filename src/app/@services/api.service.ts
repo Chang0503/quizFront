@@ -27,13 +27,13 @@ export class ApiService {
     return this.http.post(`${this.baseUrl}/delete`, req);
   }
   getQuizById(quizId: number) {
-    return this.http.get<any>(`${this.baseUrl}/getByQuizId?quizId=${quizId}`);
+    return this.http.post<any>(`${this.baseUrl}/getByQuizId?quizId=${quizId}`, {});
   }
   fillin(req: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/fillin`, req);
   }
   getFeedbackByQuizId(quizId: number) {
-    return this.http.get<FeedbackRes>(`${this.baseUrl}/feedback?quizId=${quizId}`);
+    return this.http.post<FeedbackRes>(`${this.baseUrl}/feedback?quizId=${quizId}`, null);
   }
   getStatistics(quizId: number): Observable<any> {
     const params = new HttpParams().set('quizId', quizId.toString());
