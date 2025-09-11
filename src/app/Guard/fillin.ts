@@ -1,3 +1,4 @@
+// fillin.ts
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 
@@ -5,17 +6,12 @@ import { CanActivate, Router } from '@angular/router';
     providedIn: 'root'
 })
 export class FillinGuard implements CanActivate {
-
     constructor(private router: Router) { }
-
     canActivate(): boolean {
-        const canFill = sessionStorage.getItem('canFillQuiz'); // 按按鈕時設置
-        if (canFill === 'true') {
-            return true;
-        } else {
-            alert('你無權限直接進入此頁面');
-            this.router.navigate(['/home']);
-            return false;
-        }
+        const canFill = sessionStorage.getItem('canFillQuiz');
+        if (canFill === 'true') return true;
+        alert('你無權限直接進入此頁面');
+        this.router.navigate(['/home']);
+        return false;
     }
 }
