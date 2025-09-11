@@ -53,7 +53,7 @@ export class CarCreateComponent implements OnInit {
 
   ngOnInit(): void {
 
-    localStorage.removeItem('adminLoggedIn');
+
     sessionStorage.removeItem('canFillQuiz');
     this.quizForm = this.fb.group({
       title: ['', Validators.required],

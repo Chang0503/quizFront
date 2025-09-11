@@ -8,7 +8,7 @@ import { environment } from './environment'; // 路徑依你專案而定
   providedIn: 'root'
 })
 export class ApiService {
-  private baseUrl = environment.apiUrl; // 用環境變數
+  private baseUrl = environment; // 用環境變數
 
   constructor(private http: HttpClient) { }
 

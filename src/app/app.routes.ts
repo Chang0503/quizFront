@@ -29,5 +29,4 @@ export const routes: Routes = [
   { path: 'carCreate', component: CarCreateComponent, canActivate: [Login] },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 
-
 ];
