@@ -5,7 +5,7 @@ import { CanActivate, Router } from '@angular/router';
 @Injectable({
     providedIn: 'root'
 })
-export class FillinGuard implements CanActivate {
+export class Fill implements CanActivate {
     constructor(private router: Router) { }
     canActivate(): boolean {
         const canFill = sessionStorage.getItem('canFillQuiz');
