@@ -3,11 +3,12 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { HttpParams } from '@angular/common/http';
 import { FeedbackRes } from '../@models/feedback.model';
+import { environment } from './environment'; // 路徑依你專案而定
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  private baseUrl = 'http://localhost:8080/quiz';
+  private baseUrl = environment.apiUrl; // 用環境變數
 
   constructor(private http: HttpClient) { }
 
