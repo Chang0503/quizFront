@@ -4,7 +4,7 @@ import { CanActivate, Router } from '@angular/router';
 @Injectable({
     providedIn: 'root'
 })
-export class fillin implements CanActivate {
+export class FillinGuard implements CanActivate {
 
     constructor(private router: Router) { }
 

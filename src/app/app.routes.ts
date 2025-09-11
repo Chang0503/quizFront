@@ -12,20 +12,20 @@ import { WritePathComponent } from './write-path/write-path.component';
 import { CarCreateComponent } from './car-create/car-create.component';
 
 //守衛
-import { login } from './guard/login';
-import { fillin } from './guard/fillin';
+import { LoginGuard } from './guard/login';
+import { FillinGuard } from './guard/fillin';
 
 export const routes: Routes = [
   { path: 'path1', component: Path1Component },
-  { path: 'childa/:id', component: ChildAComponent, canActivate: [fillin] },
-  { path: 'childa_1', component: ChildA1Component, canActivate: [fillin] },
-  { path: 'childb', component: ChildBComponent, canActivate: [login] },
+  { path: 'childa/:id', component: ChildAComponent, canActivate: [FillinGuard] },
+  { path: 'childa_1', component: ChildA1Component, canActivate: [FillinGuard] },
+  { path: 'childb', component: ChildBComponent, canActivate: [LoginGuard] },
   { path: 'food', component: FoodComponent },
   { path: 'home', component: HomeComponent },
   { path: 'parking', component: ParkingComponent },
   { path: 'hotel', component: HotelComponent },
-  { path: 'write/:id', component: WritePathComponent, canActivate: [fillin] },
-  { path: 'carCreate', component: CarCreateComponent, canActivate: [login] },
+  { path: 'write/:id', component: WritePathComponent, canActivate: [FillinGuard] },
+  { path: 'carCreate', component: CarCreateComponent, canActivate: [LoginGuard] },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 
 
