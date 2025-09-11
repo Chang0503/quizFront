@@ -12,8 +12,8 @@ import { WritePathComponent } from './write-path/write-path.component';
 import { CarCreateComponent } from './car-create/car-create.component';
 
 //守衛
-import { Login } from './guard/login';
-import { Fill } from './guard/fillin';
+import { Login } from './@services/login.gurad';
+import { Fill } from './@services/fillin.guard';
 
 
 export const routes: Routes = [
