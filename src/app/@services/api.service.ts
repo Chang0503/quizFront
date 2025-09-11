@@ -8,7 +8,8 @@ import { environment } from './environment'; // 路徑依你專案而定
   providedIn: 'root'
 })
 export class ApiService {
-  private baseUrl = environment; // 用環境變數
+  private baseUrl = environment.baseUrl;
+
 
   constructor(private http: HttpClient) { }
 
@@ -26,13 +27,13 @@ export class ApiService {
     return this.http.post(`${this.baseUrl}/delete`, req);
   }
   getQuizById(quizId: number) {
-    return this.http.post<any>(`http://localhost:8080/quiz/getByQuizId?quizId=${quizId}`, {});
+    return this.http.get<any>(`${this.baseUrl}/getByQuizId?quizId=${quizId}`);
   }
   fillin(req: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/fillin`, req);
   }
   getFeedbackByQuizId(quizId: number) {
-    return this.http.post<FeedbackRes>(`http://localhost:8080/quiz/feedback?quizId=${quizId}`, null);
+    return this.http.get<FeedbackRes>(`${this.baseUrl}/feedback?quizId=${quizId}`);
   }
   getStatistics(quizId: number): Observable<any> {
     const params = new HttpParams().set('quizId', quizId.toString());
