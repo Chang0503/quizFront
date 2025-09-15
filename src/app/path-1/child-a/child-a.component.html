@@ -36,7 +36,7 @@
 
       <div class="input-item">
         <label for="date">日期:</label>
-        <input matInput [matDatepicker]="picker" [(ngModel)]="date" [min]="minDate" readonly>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="date" [min]="minDate" [max]="maxDate" readonly>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </div>

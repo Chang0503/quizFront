@@ -20,6 +20,7 @@ export class ChildAComponent implements OnInit {
 
   @ViewChild('picker') picker!: MatDatepicker<Date>; // ✅ 宣告 picker
   minDate!: Date;
+  maxDate!: Date;
   date!: Date; // 用來綁定選的日期
 
   quizId: number = 0;
@@ -42,7 +43,11 @@ export class ChildAComponent implements OnInit {
 
   ngOnInit(): void {
     localStorage.removeItem('adminLoggedIn');
-    this.minDate = new Date();
+
+    //設定日期選擇器的最小日期為今天的下一天
+    const today = new Date();
+    this.minDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
+
     this.route.paramMap.subscribe(params => {
       const idParam = params.get('id');
       if (idParam) {
@@ -80,6 +85,9 @@ export class ChildAComponent implements OnInit {
         this.direction = meta.direction;
         this.startDate = meta.startDate;
         this.endDate = meta.endDate;
+
+        // 設定日期選擇器最大日期
+        this.maxDate = this.endDate ? new Date(this.endDate) : new Date(new Date().setFullYear(new Date().getFullYear()));
         // 先轉換 API 回來的資料
         const newArray = response.questionList.map((q: any, index: number) => ({
           quesId: q.id ?? (index + 1),
