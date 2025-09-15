@@ -84,6 +84,9 @@ body {
   max-width: 400px;
 }
 
+::ng-deep .input-item mat-datepicker-toggle button {
+  color: #ffffff; /* 改 icon 顏色 */
+}
 .input-item input:focus {
   border-color: #e67e22;
   box-shadow: 0 0 8px rgba(230, 126, 34, 0.7);
@@ -92,6 +95,7 @@ body {
 .input-item input::placeholder {
   color: #7f8c8d;
 }
+
 
 /* 🎯 問題選擇區塊 */
 .choose {

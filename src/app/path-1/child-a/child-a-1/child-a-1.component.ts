@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ServiceService } from './../../../@services/service';
 import { Router } from '@angular/router';
 import { ApiService } from './../../../@services/api.service';
+import { CommonModule } from '@angular/common'; // ✅ 加入 CommonModule
 @Component({
   selector: 'app-child-a-1',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './child-a-1.component.html',
   styleUrl: './child-a-1.component.scss'
 })
@@ -39,6 +40,7 @@ export class ChildA1Component implements OnInit {
       phone: this.userdata.phone,
       email: this.userdata.email,
       age: this.userdata.number,
+      date: this.userdata.date, // ✅ 加這行
       quizId: this.userdata.quizId,
       answerVoList: answerVoList
     };
@@ -47,6 +49,7 @@ export class ChildA1Component implements OnInit {
       next: (res) => {
         console.log('填寫成功', res);
         sessionStorage.removeItem('canFillQuiz');
+        this.service.clearAnswers();
         this.router.navigate(['/path1']);
 
       },
@@ -68,6 +71,10 @@ export class ChildA1Component implements OnInit {
   ngOnInit(): void {
     localStorage.removeItem('adminLoggedIn');
     this.userdata = this.service.getAnswers();
+    // 確保 date 是 Date 物件
+    if (this.userdata && this.userdata.date) {
+      this.userdata.date = new Date(this.userdata.date);
+    }
     console.log(this.userdata);
   }
 

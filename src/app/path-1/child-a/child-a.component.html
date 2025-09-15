@@ -33,6 +33,14 @@
         <label for="number">年齡:</label>
         <input type="number" id="number" [(ngModel)]="age" placeholder="例: 18">
       </div>
+
+      <div class="input-item">
+        <label for="date">日期:</label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="date" [min]="minDate" readonly>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </div>
+
     </div>
   </div>
   }

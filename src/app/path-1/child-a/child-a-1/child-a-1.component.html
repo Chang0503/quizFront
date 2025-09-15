@@ -22,30 +22,32 @@
       <div class="input-item">
         <label>年齡: {{ userdata.number }}</label>
       </div>
-    </div>
-    <div class="choose">
-      @for (question of userdata.array1; track $index) {
-      <div class="question-name">
-        <p>{{ question.questName }}</p>
+      <div class="input-item">
+        <label>日期: {{ userdata.date | date:'yyyy/MM/dd' }}</label>
       </div>
-      <div class="choose-option">
-        <p>{{ question.answers }}</p>
+      <div class="choose">
+        @for (question of userdata.array1; track $index) {
+        <div class="question-name">
+          <p>{{ question.questName }}</p>
+        </div>
+        <div class="choose-option">
+          <p>{{ question.answers }}</p>
 
-        @if(question.type == "Multi"){
-        @for(BooleanData of question.choose; track $index){
-        @if(BooleanData.Boolean == true){
-        {{ BooleanData.chooseName }}
-        }
-        }
+          @if(question.type == "Multi"){
+          @for(BooleanData of question.choose; track $index){
+          @if(BooleanData.Boolean == true){
+          {{ BooleanData.chooseName }}
+          }
+          }
+          }
+        </div>
         }
       </div>
-      }
-    </div>
 
-    <div class="button">
-      <button (click)="back()">返回</button>
-      <button (click)="enter()">送出</button>
-    </div>
+      <div class="button">
+        <button (click)="back()">返回</button>
+        <button (click)="enter()">送出</button>
+      </div>
 
+    </div>
   </div>
-</div>

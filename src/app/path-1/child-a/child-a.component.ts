@@ -1,21 +1,26 @@
 import { ServiceService } from './../../@services/service';
-import { Component, } from '@angular/core';
+import { Component, ViewChild, } from '@angular/core';
 import { RouterOutlet, Router, RouterLink, } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../@services/api.service';
 import { OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
+import { MatDatepicker, MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core'; // ✅ 這個提供 Native DateAdapter
 
 
 @Component({
   selector: 'app-child-a',
-  imports: [RouterOutlet, FormsModule],
+  imports: [RouterOutlet, FormsModule, MatDatepickerModule, MatNativeDateModule],
   templateUrl: './child-a.component.html',
   styleUrl: './child-a.component.scss'
 })
 
 export class ChildAComponent implements OnInit {
+
+  @ViewChild('picker') picker!: MatDatepicker<Date>; // ✅ 宣告 picker
+  minDate!: Date;
+  date!: Date; // 用來綁定選的日期
 
   quizId: number = 0;
   array1: any[] = [];
@@ -37,6 +42,7 @@ export class ChildAComponent implements OnInit {
 
   ngOnInit(): void {
     localStorage.removeItem('adminLoggedIn');
+    this.minDate = new Date();
     this.route.paramMap.subscribe(params => {
       const idParam = params.get('id');
       if (idParam) {
@@ -51,6 +57,7 @@ export class ChildAComponent implements OnInit {
       this.phone = savedData.phone || '';
       this.email = savedData.email || '';
       this.age = savedData.number || '';
+      this.date = savedData.date || '';
       this.array1 = savedData.array1 || [];
     }
   }
@@ -159,6 +166,7 @@ export class ChildAComponent implements OnInit {
       startDate: this.startDate,
       endDate: this.endDate,
       direction: this.direction,
+      date: this.date, // ✅ 這裡就可以用了
     };
 
     this.service.saveAnswers(jsonData);  // 存到 service
